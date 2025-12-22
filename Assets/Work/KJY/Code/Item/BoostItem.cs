@@ -16,7 +16,7 @@ namespace Work.KJY.Code.Item
 
         private void Start()
         {
-            transform.position = new Vector3(0, defaultYPos, 0);
+            transform.position = new Vector3(transform.position.x, defaultYPos, transform.position.z);
             StartFloatingAnimation();
         }
         
