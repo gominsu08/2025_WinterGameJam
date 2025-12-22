@@ -10,7 +10,7 @@ namespace Work.Characters
         public CharacterDataSO CurrentCharacterData { get; private set; }
         public Vector3 MoveDirection { get; private set; }
 
-        [field: SerializeField] public bool iPushMode { get; private set; }
+        public bool IsPushMode => CurrentCharacter.IsPushMode;
 
         private InputContainer _inputContainer;
 

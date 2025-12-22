@@ -39,8 +39,8 @@ namespace Work.GMS.Code.Characters.CharacterState
             if (evt.MoveDirection != Vector3.zero)
             {
 
-                //string stateName = 
-                _stateCompo.ChangeState("MOVE");
+                string stateName = _character.IsPushMode ? "PUSH" : "MOVE";
+                _stateCompo.ChangeState(stateName);
             }
         }
     }

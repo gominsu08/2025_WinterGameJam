@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 using Work.Entities;
 
 namespace Work.Characters.Code
@@ -17,15 +10,16 @@ namespace Work.Characters.Code
         private Character _character;
         private DetectSensorCompo _sensor;
         private Rigidbody _rbCompo;
-        private Vector3 _direction; //움직일 방향
-        private float _c = 1f;
-        [SerializeField] private float _defaultSpeed = 5; //속도 -> 나중에 캐릭터 데이터에서 받아오도록 변경 필요
-        
+        private Vector3 _direction = Vector3.zero; //움직일 방향
+        private float _snowRadiuse = 8f;
+        [SerializeField] private float _defaultSpeed = 3; //속도 -> 나중에 캐릭터 데이터에서 받아오도록 변경 필요
+
 
         public Entity Owner { get; private set; }
         public Transform TargetTransform => _sensor == null ? null : _sensor.CurrentTarget.Transform;
         public bool IsCanMove { get; set; } = true;
-        public bool IsExistTarget => _sensor == null ? false : _sensor.IsExistTarget;
+        public bool IsPushMode => _character.IsPushMode;
+        public bool IsMoveing => _direction != Vector3.zero && IsCanMove;
         public float CurrentSpeed { get; private set; }
         public float CurrentSpeedMultiplier { get; private set; } = 1f;
 
@@ -41,10 +35,10 @@ namespace Work.Characters.Code
             _character = Owner as Character;
             _sensor = _character.GetCompo<DetectSensorCompo>();
             _rbCompo = _character.GetComponent<Rigidbody>();
-            CurrentSpeed = _defaultSpeed * _c;
+            CurrentSpeed = _defaultSpeed;
         }
 
-      
+
 
         #endregion
 
@@ -54,7 +48,7 @@ namespace Work.Characters.Code
         {
             Move();
             Rotate();
-        } 
+        }
 
         #endregion
 
@@ -65,16 +59,20 @@ namespace Work.Characters.Code
 
         private void Rotate()
         {
-            if(IsExistTarget) //타겟이 존재할때
-            {                
-                Vector3 dir = (TargetTransform.position - _character.transform.position).normalized;
-                dir.y = 0f;
-                if (dir == Vector3.zero) return;
-                Quaternion lookRotation = Quaternion.LookRotation(dir);
-                _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, lookRotation, Time.deltaTime * 10f);
+            if (IsPushMode) //타겟이 존재할때
+            {
+                if (_direction == Vector3.zero) return;
+                //_direction.z = 0;
+                Debug.Log("밍");
+
+                Quaternion lookRotation = Quaternion.LookRotation(_direction);
+                float mul = 1 / _snowRadiuse;
+
+                _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, lookRotation, Time.deltaTime * 3 * mul);
             }
             else //타겟이 없을때
             {
+                Debug.Log("밍");
                 if (_direction == Vector3.zero) return;
                 Quaternion lookRotation = Quaternion.LookRotation(_direction);
                 _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, lookRotation, Time.deltaTime * 10f);
@@ -84,14 +82,23 @@ namespace Work.Characters.Code
         private void Move()
         {
             Vector3 moveVector = _direction * CurrentSpeed * CurrentSpeedMultiplier;
+
+            if (IsPushMode)
+            {
+                moveVector = _character.transform.forward * CurrentSpeed * CurrentSpeedMultiplier;
+            }
+
+
             if (!IsCanMove)
             {
                 moveVector = Vector3.zero;
-                _rbCompo.freezeRotation = false;
+                //_rbCompo.freezeRotation = false;
+                _rbCompo.angularVelocity = Vector3.zero;
             }
             else
             {
-                _rbCompo.freezeRotation = true;
+                //_rbCompo.angularVelocity = Vector3.zero;
+                //_rbCompo.freezeRotation = true;
             }
 
             //moveVector.y += -9.8f;
