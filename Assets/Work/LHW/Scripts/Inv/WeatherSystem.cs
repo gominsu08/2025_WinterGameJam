@@ -23,6 +23,9 @@ public class WeatherSystem : MonoBehaviour
         StartCoroutine(Co_TestRoutine());
     }
 
+    /// <summary>
+    /// 테스트용 코루틴 | 추후 삭제 예정
+    /// </summary>
     IEnumerator Co_TestRoutine()
     {
         ChangeWeather(WeatherType.Sunny);
