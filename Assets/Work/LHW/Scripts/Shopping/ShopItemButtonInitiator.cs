@@ -23,7 +23,7 @@ public class ShopItemButtonInitiator : MonoBehaviour
     {
         if(data.item.itemIcon == null) Debug.LogWarning($"아이템 아이콘이 설정되지 않았습니다 - Shop Item Button Initiator | {data.item.itemName}");
         else itemIcon.texture = data.item.itemIcon.texture;
-        itemPriceText.text = data.price.ToString();
+        itemPriceText.text = data.price.ToString() + "$";
         itemCountText.text = Inventory.Instance.GetItemCount(data.item).ToString();
 
         if(Shop.Instance.CanPurchaseItem(data))

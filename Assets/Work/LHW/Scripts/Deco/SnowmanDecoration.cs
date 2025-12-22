@@ -13,7 +13,7 @@ public class SnowmanDecoration : MonoBehaviour
 
     [Header("Snow Man")]
     [SerializeField, Range(0, 1f)] private float snowmanMergeRatio;
-    [SerializeField] private float snowmanRotationSpeed = 50f;
+    [SerializeField] public float snowmanRotationSpeed = 50f;
     [SerializeField] private Transform snowmanRoot;
     [SerializeField] private GameObject snowmanObject;
     [SerializeField] private Transform snowmanUpPart;
@@ -36,26 +36,29 @@ public class SnowmanDecoration : MonoBehaviour
     [SerializeField] private GameObject[] decoMouths;
     [SerializeField] private GameObject[] decoNoses;
 
-    // =========================
-    // Free Placement (NEW)
-    // =========================
     [Header("Free Placement (Eye/Nose/Mouth/Arm etc)")]
     [SerializeField] private LayerMask snowmanSurfaceMask;    // 스노우맨 표면 레이어
     [SerializeField] private Transform placeablesRoot;        // 생성될 배치형 데코 부모(비워도 됨)
     [SerializeField] private float maxRayDistance = 200f;
     [SerializeField] private float defaultSurfaceOffset = 0.02f;
 
+    [Header("Selling Price Rate")]
+    [SerializeField] private GameObject sellingPannel;
+    [SerializeField] private TMP_Text sellingDecoPriceText;
+    [SerializeField] private TMP_Text sellingSnowPriceText;
+    [SerializeField] private TMP_Text minusPriceText;
+    [SerializeField] private TMP_Text sellingTotalPriceText;
+
     private DecorationItem pendingPlaceItem;
+    private DecorationButtonInitiator currentPlacingButton;
     private GameObject previewInstance;
 
     // 싱글톤/단일 설치 타입(코/입 같은거 “1개만 유지” 하고 싶으면 여기에 등록)
     // 필요없으면 비워둬도 됨.
     private readonly HashSet<DecorationType> singletonPlaceTypes = new()
     {
-        DecorationType.Nose,
-        DecorationType.Mouth
-        // DecorationType.Eye, // 눈도 1개만 하려면 추가
-        // DecorationType.Arm  // 팔도 1개만 하려면 추가
+        DecorationType.Muffler,
+        DecorationType.Hat,
     };
 
     public void Start()
@@ -95,7 +98,14 @@ public class SnowmanDecoration : MonoBehaviour
         snowmanDownPart.localPosition = new Vector3(0, -downSize / 2, 0);
 
         //Camera.main.fieldOfView = 60 + (upSize + downSize) * 2;
-        Camera.main.transform.localPosition = new Vector3(0, 0, -10 - (upSize + downSize) * 1.2f);
+        Camera.main.transform.localPosition = new Vector3(0, -(upSize + downSize) / 5f, -10 - (upSize + downSize) * 1.2f);
+
+        for(int i = 0; i < placeablesRoot.childCount; i++)
+        {
+            if(placeablesRoot.GetChild(i).gameObject.tag == "Decoration") Destroy(placeablesRoot.GetChild(i).gameObject);
+        }
+
+        snowmanRoot.localRotation = Quaternion.identity;
     }
 
     private void InitDecoUI()
@@ -140,17 +150,30 @@ public class SnowmanDecoration : MonoBehaviour
 
             GameObject itemButtonObj = Instantiate(uiButtonPrefab, uiButtonParent);
 
-            // 기존 방식 유지: 버튼 스크립트가 item을 Init하고, 그 스크립트가 SnowmanDecoration.Instance.DecoSnowman(...) 호출한다고 가정
             itemButtonObj.GetComponent<DecorationButtonInitiator>().Init(item as DecorationItem);
         }
     }
 
-    public void DecoSnowman(DecorationItem item)
+
+    /// <summary>
+    /// 스노우맨에 데코레이션 적용 메서드
+    /// </summary>
+    /// <param name="item">데코레이션 아이템</param>
+    /// <param name="buttonInitiator">해당 아이템 선택 버튼</param>
+    public void DecoSnowman(DecorationItem item, DecorationButtonInitiator buttonInitiator)
     {
         // === 1) 자유 배치 타입이면 배치 모드로 전환 ===
         if (IsFreePlaceType(item.decorationType))
         {
-            BeginPlacement(item);
+            // [수정] 이미 선택된 아이템을 또 눌렀다면? -> 배치 모드 종료 (토글 오프)
+            if (pendingPlaceItem == item)
+            {
+                CancelPlacement();
+                return;
+            }
+
+            // 새로운 아이템 선택 -> 배치 모드 시작
+            BeginPlacement(item, buttonInitiator);
             return;
         }
 
@@ -192,9 +215,15 @@ public class SnowmanDecoration : MonoBehaviour
                 decoNoses[item.decorationObjectIndex].SetActive(!decoNoses[item.decorationObjectIndex].activeSelf);
                 break;
         }
+    }
 
-        currentSnowmanData.AddDecorationItem(item);
-        Debug.Log("데코레이션 적용 완료: " + item.itemName);
+    private void CancelPlacement()
+    {
+        if (previewInstance != null) Destroy(previewInstance);
+        previewInstance = null;
+        pendingPlaceItem = null;
+        currentPlacingButton = null;
+        Debug.Log("배치 모드 종료/취소");
     }
 
     /// <summary>
@@ -215,9 +244,10 @@ public class SnowmanDecoration : MonoBehaviour
 /// 자유 배치 모드 시작
 /// </summary>
 /// <param name="item"></param>
-    private void BeginPlacement(DecorationItem item)
+    private void BeginPlacement(DecorationItem item, DecorationButtonInitiator buttonInitiator)
     {
         pendingPlaceItem = item;
+        currentPlacingButton = buttonInitiator;
 
         if (previewInstance != null)
         {
@@ -235,63 +265,59 @@ public class SnowmanDecoration : MonoBehaviour
     {
         if (pendingPlaceItem == null) return;
 
-        // UI 위 클릭은 무시
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
-        // 표면 히트면 프리뷰 이동
         if (TryGetSnowmanSurfaceHit(out RaycastHit hit))
         {
+            // 프리뷰가 없으면 생성
             if (previewInstance == null)
             {
-                // NOTE: DecorationItem에 프리팹 필드가 없으면 아래 방식(기존 배열)로는 “마음대로 배치”가 불가능함.
-                //       그래서 자유 배치 타입은 반드시 item에 프리팹이 있어야 함(DecorationItem에 placeablePrefab 같은 필드 추가 필요).
                 if (!TryGetPlacePrefab(pendingPlaceItem, out GameObject prefab))
                 {
-                    Debug.LogError($"배치 프리팹이 없습니다: {pendingPlaceItem.itemName} (DecorationItem에 placeablePrefab 필드 필요)");
                     pendingPlaceItem = null;
                     return;
                 }
-
                 previewInstance = Instantiate(prefab, placeablesRoot ? placeablesRoot : transform);
+                previewInstance.tag = "Decoration";
                 SetPreviewVisual(previewInstance, true);
             }
 
+            // 위치/회전 업데이트
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
-
-            // 표면에 붙는 회전(원하면 up축 처리 더 정교하게 가능)
             Quaternion rot = Quaternion.LookRotation(-hit.normal, Vector3.up);
-
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
 
-        // 좌클릭: 설치 확정
-        if (Input.GetMouseButtonDown(0) && previewInstance != null)
+        // [수정] 좌클릭: 설치 확정 후 모드를 유지함
+        if (Input.GetMouseButtonDown(0) && previewInstance != null && Inventory.Instance.RemoveItem(pendingPlaceItem))
         {
-            // 싱글톤 타입이면 이전 설치 삭제
+            // 싱글톤(코, 입 등) 처리
             if (singletonPlaceTypes.Contains(pendingPlaceItem.decorationType))
             {
                 RemovePlacedSingleton(pendingPlaceItem.decorationType);
             }
 
+            currentPlacingButton.Init(pendingPlaceItem);
+
+            // 현재 프리뷰를 일반 오브젝트로 전환
             SetPreviewVisual(previewInstance, false);
             TagPlacedInstance(previewInstance, pendingPlaceItem.decorationType);
-
             currentSnowmanData.AddDecorationItem(pendingPlaceItem);
-            Debug.Log("데코레이션 적용 완료(자유 배치): " + pendingPlaceItem.itemName);
+            
 
-            previewInstance = null;
-            pendingPlaceItem = null;
+            // [중요] previewInstance만 null로 만들어 다음 프레임에 새 프리뷰가 생기게 함
+            // pendingPlaceItem은 그대로 유지하여 '연속 설치' 가능하게 함
+            previewInstance = null; 
+            
+            Debug.Log("데코레이션 적용 완료: " + pendingPlaceItem.itemName);
         }
 
-        // 우클릭: 취소
+        // 우클릭: 현재 선택된 아이템 배치 취소
         if (Input.GetMouseButtonDown(1))
         {
-            if (previewInstance != null) Destroy(previewInstance);
-            previewInstance = null;
-            pendingPlaceItem = null;
-            Debug.Log("배치 모드 취소");
+            CancelPlacement();
         }
     }
 
@@ -392,5 +418,55 @@ public class SnowmanDecoration : MonoBehaviour
     {
         prefab = item.placeablePrefab;
         return prefab != null;
+    }
+
+    public void SellingSnowman()
+    {
+        sellingPannel.SetActive(true);
+
+        int snowPrice = Mathf.RoundToInt((currentSnowmanData.snowmanUpSize + currentSnowmanData.snowmanDownSize) * 500);
+        int decoPrice = 0;
+        foreach(var deco in currentSnowmanData.decorationItems)
+        {
+            decoPrice += deco.itemValuePrice;
+        }
+
+        int totalPrice = snowPrice + decoPrice;
+
+        if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
+        {
+            totalPrice -= 500;
+            minusPriceText.text += "-500$ | 몸통보다 머리가 커요!\n";
+        }
+
+        if(currentSnowmanData.decorationItems.Count == 0)
+        {
+            totalPrice -= 200;
+            minusPriceText.text += "\n-200$ | 장식이 하나도 없어요!\n";
+        }
+
+        if(currentSnowmanData.decorationItems.Count >= 30)
+        {
+            totalPrice -= 5000;
+            minusPriceText.text += "\n-5000$ | 장식이 이상하게 너무 많아요!\n";
+        }
+        
+        if(currentSnowmanData.snowmanUpSize < 0.5f || currentSnowmanData.snowmanDownSize < 0.5f)
+        {
+            totalPrice -= 500;
+            minusPriceText.text += "\n-500$ | 눈사람이 너무 작아요!\n";
+        }
+
+        sellingDecoPriceText.text = "장식 가격: " + decoPrice + "$";
+        sellingSnowPriceText.text = "눈사람 가격: " + snowPrice + "$";
+        sellingTotalPriceText.text = "총 판매 가격: " + totalPrice + "$";
+    }
+
+    public void CloseSellingPannel()
+    {
+        sellingPannel.SetActive(false);
+        minusPriceText.text = "";
+
+        InitSnowmanData(35, 35);
     }
 }

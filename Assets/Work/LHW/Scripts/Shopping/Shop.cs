@@ -9,9 +9,11 @@ public class Shop : MonoBehaviour
     [Header("Shop Items Data")]
     [SerializeField] private ShoppingData[] shoppingDatas;
     [SerializeField] private ItemType filterType;
+    [SerializeField] private DecorationType filterDecorationType;
 
 
     [Header("UI Elements")]
+    [SerializeField] private GameObject decoFilterButtons;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private Transform itemsParent;
     [SerializeField] private GameObject shopItemPrefab;
@@ -33,11 +35,14 @@ public class Shop : MonoBehaviour
         InitUI();
     }
 
+
     //<summary>
     // 필터링에 맞춰 아이템 데이터 초기화
     //</summary>
     private void InitUI()
     {
+        decoFilterButtons.SetActive(filterType == ItemType.Deco);
+        
         foreach(Transform child in itemsParent)
         {
             Destroy(child.gameObject);
@@ -46,7 +51,7 @@ public class Shop : MonoBehaviour
         foreach(var data in shoppingDatas)
         {
             if(data.item.itemType != filterType) continue;
-
+            if(filterType == ItemType.Deco && data.item is DecorationItem decoItem && decoItem.decorationType != filterDecorationType) continue;
             GameObject itemObj = Instantiate(shopItemPrefab, itemsParent);
             itemObj.GetComponent<ShopItemButtonInitiator>().Init(data);
         }
@@ -79,6 +84,12 @@ public class Shop : MonoBehaviour
     public void ChangeFilterType(int type)
     {
         filterType = (ItemType)type;
+        InitUI();
+    }
+
+    public void ChangeDecoFilterType(int type)
+    {
+        filterDecorationType = (DecorationType)type;
         InitUI();
     }
 

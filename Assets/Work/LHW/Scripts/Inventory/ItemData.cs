@@ -35,6 +35,8 @@ public class DecorationItem : ItemBase
     public int decorationObjectIndex;
     public DecorationType decorationType;
 
+    public int itemValuePrice;
+
     // 배치형 옵션
     public bool isPlaceable;
     public GameObject placeablePrefab;

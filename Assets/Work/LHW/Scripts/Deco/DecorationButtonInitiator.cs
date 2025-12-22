@@ -18,14 +18,23 @@ public class DecorationButtonInitiator : MonoBehaviour
         if(data.itemIcon == null) Debug.LogWarning($"아이템 아이콘이 설정되지 않았습니다 - Decoration Button Initiator | {data.itemName}");
         else itemIcon.texture = data.itemIcon.texture;
         itemCountText.text = Inventory.Instance.GetItemCount(data).ToString();
-
+        installButton.onClick.RemoveAllListeners();
         installButton.onClick.AddListener(() =>
         {
-            bool success = Inventory.Instance.RemoveItem(data);
-            if (success)
+            if(!data.isPlaceable)
             {
-                SnowmanDecoration.Instance.DecoSnowman(data);
+                bool success = Inventory.Instance.RemoveItem(data);
+
+                if (success)
+                {
+                    SnowmanDecoration.Instance.DecoSnowman(data, this);
+                }
             }
+            else
+            {
+                SnowmanDecoration.Instance.DecoSnowman(data, this);
+            }
+            
         });
     }
     
