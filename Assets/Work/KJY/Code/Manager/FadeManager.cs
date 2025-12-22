@@ -23,17 +23,17 @@ namespace Work.KJY.Code.Manager
         private void Update()
         {
             if (Keyboard.current.qKey.wasPressedThisFrame)
-                FadeIn(2, "Boost Item Test");
+                FadeIn(1f, "");
             else if (Keyboard.current.eKey.wasPressedThisFrame)
                 FadeOut();
         }
 
-        public void FadeIn(float duration = 2f, string sceneName = "")
+        public void FadeIn(float duration = 1f, string sceneName = "")
         {
             Fade(1f, duration, true, sceneName);
         }
 
-        public void FadeOut(float duration = 2f)
+        public void FadeOut(float duration = 1f)
         {
             Fade(0f, duration, false);
         }
@@ -46,9 +46,7 @@ namespace Work.KJY.Code.Manager
                 return;
             
             if (fadeTween != null && fadeTween.IsActive())
-            {
                 return;
-            }
 
             fadeTween?.Kill();
 
