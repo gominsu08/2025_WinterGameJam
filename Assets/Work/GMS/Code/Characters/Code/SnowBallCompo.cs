@@ -1,18 +1,14 @@
-﻿using DG.Tweening;
-using UnityEngine;
-using UnityEngine.TextCore.Text;
+﻿using UnityEngine;
 using Work.Characters.Code;
-using Work.Characters.Events;
 using Work.Entities;
 using Work.GMS.Code.Snowballs;
-using Work.Utils.EventBus;
 
 namespace Work.GMS.Code.Characters.Code
 {
     public class SnowBallCompo : MonoBehaviour, IEntityComponent
     {
         public Entity Owner { get; private set; }
-        public float CurrentSnowRadius { get; private set; }
+        public float CurrentSnowRadius => snowball.currentRadius;
 
         [SerializeField] private Transform snowballTransform;
         [SerializeField] private Snowball snowball;
@@ -29,28 +25,21 @@ namespace Work.GMS.Code.Characters.Code
         {
             Owner = entity;
 
-            CurrentSnowRadius = snowRadius * _multiplier;
-
+            snowball.Init(entity as Character);
             snowball.SetSnow(CurrentSnowRadius);
 
             mover = Owner.GetCompo<CharacterMovementCompo>();
+
         }
 
         private void Update()
         {
-            if(mover.IsMoveing)
+            if (mover.IsMoveing)
             {
-                CurrentSnowRadius += SNOW_GROWTH_RATE * _multiplier * Time.deltaTime;
-                snowball.transform.localPosition  = new Vector3(0, (CurrentSnowRadius / 2) - 0.776f, (CurrentSnowRadius / 2));
-                snowball.transform.Rotate((10 * mover.CurrentSpeed + (CurrentSnowRadius * 4)) * Time.deltaTime, 0, 0f);
+                if (snowball.IsOnSnow())
+                    snowball.SetSnow(CurrentSnowRadius + SNOW_GROWTH_RATE * Time.deltaTime);
                 //float angle = Mathf.Atan2();
-                snowball.SetSnow(CurrentSnowRadius);
             }
-        }
-
-        public void SetMultiplier(float multiplier)
-        {
-            _multiplier = multiplier;
         }
 
     }
