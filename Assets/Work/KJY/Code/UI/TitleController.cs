@@ -12,12 +12,13 @@ namespace Work.KJY.Code.UI
 
         public void SettingButton()
         {
-            
+            SettingManager.Instance.ToggleSettings();
         }
 
         public void QuitButton()
         {
             Application.Quit();
+        
         }
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f169d2f4acdf4d809cb2362f20040936, type: 3}
   m_Name: Test Sound
   m_EditorClassIdentifier: 
-  key: 
-  clip: {fileID: 0}
-  volume: 1
-  loop: 0
+  key: TEST
+  clip: {fileID: 8300000, guid: 20d719c9648069347bc65b3ad470c61a, type: 3}
+  volume: 0.1
+  loop: 1
   min_ListenDistance: 5
   max_ListenDistance: 500
