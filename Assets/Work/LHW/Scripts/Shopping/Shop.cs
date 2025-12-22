@@ -92,6 +92,11 @@ public class Shop : MonoBehaviour
         itemDetailUI.SetActive(true);
     }
 
+    public bool CanPurchaseItem(ShoppingData data)
+    {
+        return Inventory.Instance.money >= data.price;
+    }
+
     public void HideDetailUI()
     {
         itemDetailUI.SetActive(false);

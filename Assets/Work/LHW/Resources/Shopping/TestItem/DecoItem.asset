@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: DecoItem
   m_EditorClassIdentifier: Assembly-CSharp::DecorationItem
-  itemName: "\uB370\uCF54 \uD14C\uC2A4\uD2B8 \uC544\uC774\uD15C"
+  itemName: 
+  itemDescription: 
   itemType: 0
   itemIcon: {fileID: 0}
   decorationObjectIndex: 0
+  decorationType: 1
+  isPlaceable: 1
+  placeablePrefab: {fileID: 1039245840367812239, guid: 6aeeede0a2a964650a90ecea5950507e, type: 3}
+  placementTarget: 0
+  surfaceOffset: 0.02
