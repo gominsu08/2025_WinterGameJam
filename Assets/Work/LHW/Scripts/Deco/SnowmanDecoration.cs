@@ -81,7 +81,7 @@ public class SnowmanDecoration : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        snowmanRoot.rotation *= Quaternion.Euler(new Vector3(v, -h, 0) * snowmanRotationSpeed * Time.deltaTime);
+        snowmanRoot.localRotation *= Quaternion.Euler(new Vector3(v, -h, 0) * snowmanRotationSpeed * Time.deltaTime);
     }
 
     public void InitSnowmanData(float upSize, float downSize)
