@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Work.Entities;
-using Work.Entities.Code;
 
 namespace Work.Characters.Code
 {
     public class Character : Entity
     {
-        //public bool Is
+        [field: SerializeField] public bool IsPushMode { get; private set; }
         public CharacterDataSO CharacterData => EntityDataSO as CharacterDataSO;
     }
 }
