@@ -21,6 +21,13 @@ namespace Work.GMS.Code.Snowballs
         float[,,] originalAlphamaps;
         float[,] originalHeights;
 
+        [Header("Snow Overlay")]
+        public Renderer snowRenderer;
+        public int snowMaskResolution = 1024;
+
+        RenderTexture snowMask;
+        Material snowMat;
+
         void Awake()
         {
             // 🔹 TerrainData 복제 (원본 보호)
@@ -35,6 +42,23 @@ namespace Work.GMS.Code.Snowballs
             // 🔹 원본 상태 백업
             originalAlphamaps = data.GetAlphamaps(0, 0, alphaWidth, alphaHeight);
             originalHeights = data.GetHeights(0, 0, heightRes, heightRes);
+
+            snowMask = new RenderTexture(snowMaskResolution, snowMaskResolution, 0, RenderTextureFormat.R8);
+            snowMask.wrapMode = TextureWrapMode.Clamp;
+            snowMask.filterMode = FilterMode.Bilinear;
+            snowMask.Create();
+
+            snowMat = snowRenderer.material;
+            snowMat.SetTexture("_SnowMask", snowMask);
+            Debug.Log(snowMat.GetTexture("_SnowMask"));
+            ClearSnowMask();
+        }
+
+        void ClearSnowMask()
+        {
+            RenderTexture.active = snowMask;
+            GL.Clear(true, true, Color.white);
+            RenderTexture.active = null;
         }
 
         void OnDestroy()
@@ -90,6 +114,7 @@ namespace Work.GMS.Code.Snowballs
 
             RemoveSnowAlphamap(hit, ballSize);
             DeformSnowHeight(hit, ballSize, hit.normal);
+            DigSnow(hit.point, (ballSize / 614.4f )* 2.5f);
         }
 
         // --------------------------------------------------
@@ -136,6 +161,60 @@ namespace Work.GMS.Code.Snowballs
             }
 
             data.SetAlphamaps(startX, startY, map);
+            
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                RenderTexture.active = snowMask;
+                GL.Clear(true, true, Color.black);
+                RenderTexture.active = null;    
+            }
+        }
+
+        public void DigSnow(Vector3 worldPos, float radius)
+        {
+            Debug.Log("DigSnow called");
+
+            Vector3 local = worldPos - terrain.transform.position;
+
+            float u = local.x / terrain.terrainData.size.x;
+            float v = local.z / terrain.terrainData.size.z;
+            Debug.Log($"UV: {u}, {v}");
+            RenderTexture.active = snowMask;
+
+            GL.PushMatrix();
+            GL.LoadOrtho();
+
+            Material mat = new Material(Shader.Find("Hidden/Internal-Colored"));
+            mat.SetPass(0);
+
+            GL.Begin(GL.TRIANGLES);
+            GL.Color(Color.black);
+
+            int segments = 32;
+            Vector2 center = new Vector2(u, v);
+
+            for (int i = 0; i < segments; i++)
+            {
+                float a0 = (i / (float)segments) * Mathf.PI * 2f;
+                float a1 = ((i + 1) / (float)segments) * Mathf.PI * 2f;
+
+                Vector2 p0 = center;
+                Vector2 p1 = center + new Vector2(Mathf.Cos(a0), Mathf.Sin(a0)) * radius;
+                Vector2 p2 = center + new Vector2(Mathf.Cos(a1), Mathf.Sin(a1)) * radius;
+
+                GL.Vertex3(p0.x, p0.y, 0);
+                GL.Vertex3(p1.x, p1.y, 0);
+                GL.Vertex3(p2.x, p2.y, 0);
+            }
+
+            GL.End();
+            GL.PopMatrix();
+            //snowMat.SetTexture("_SnowMask", snowMask);
+            RenderTexture.active = null;
         }
 
         // --------------------------------------------------
@@ -188,7 +267,7 @@ namespace Work.GMS.Code.Snowballs
                     heights[y, x] = Mathf.Clamp01(heights[y, x]);
                 }
             }
-
+           
             data.SetHeights(startX, startY, heights);
         }
 

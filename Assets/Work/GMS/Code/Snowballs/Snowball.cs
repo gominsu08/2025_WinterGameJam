@@ -17,21 +17,10 @@ namespace Work.GMS.Code.Snowballs
 
         public void SetSnow(float currentSnowRadius)
         {
-            snowCollider.transform.localScale = Vector3.one * currentSnowRadius;
-            currentRadius = currentSnowRadius;
-            ProcessSnow();
-           // Debug.Log($"[Snowball] SetSnow: Radius = {currentSnowRadius}");
-        }
-
-        void ProcessSnow()
-        {
             Ray ray = new Ray(transform.position, Vector3.down);
 
             if (Physics.Raycast(ray, out RaycastHit hit, currentRadius + checkDistance, groundLayer))
             {
-                if (!snowManager.HasSnow(hit))
-                    return;
-
                 // 너무 자주 파지 않도록 거리 제한
                 if (Vector3.Distance(lastDigPosition, hit.point) < 0.3f)
                     return;
@@ -43,6 +32,11 @@ namespace Work.GMS.Code.Snowballs
                     currentRadius
                 );
             }
+
+
+            snowCollider.transform.localScale = Vector3.one * currentSnowRadius;
+            currentRadius = currentSnowRadius;
+           // Debug.Log($"[Snowball] SetSnow: Radius = {currentSnowRadius}");
         }
 
         float GetSlopeFactor(Vector3 normal)
