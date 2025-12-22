@@ -14,6 +14,7 @@ public enum DecorationType
 [Serializable]
 public class ItemBase : ScriptableObject{
     public string itemName;
+    [TextArea(3, 10)]public string itemDescription;
     public ItemType itemType;
     public Sprite itemIcon;
 }

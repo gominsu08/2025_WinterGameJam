@@ -1,4 +1,6 @@
- using UnityEngine;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -13,6 +15,12 @@ public class Shop : MonoBehaviour
     [SerializeField] private GameObject shopUI;
     [SerializeField] private Transform itemsParent;
     [SerializeField] private GameObject shopItemPrefab;
+
+    [Header("Detail UI Elements")]
+    [SerializeField] private GameObject itemDetailUI;
+    [SerializeField] private RawImage itemDetailImage;
+    [SerializeField] private TMP_Text itemDetailDescText;
+    [SerializeField] private TMP_Text itemDetailNameText;
 
     void Awake()
     {
@@ -72,5 +80,20 @@ public class Shop : MonoBehaviour
     {
         filterType = (ItemType)type;
         InitUI();
+    }
+
+    public void ShowDetailUI(ShoppingData data)
+    {
+        if(data.item.itemIcon == null) Debug.LogWarning($"아이템 아이콘이 설정되지 않았습니다 - Detail View | {data.item.itemName}");
+        else itemDetailImage.texture = data.item.itemIcon.texture;
+        itemDetailNameText.text = data.item.itemName;
+        itemDetailDescText.text = data.item.itemDescription;
+
+        itemDetailUI.SetActive(true);
+    }
+
+    public void HideDetailUI()
+    {
+        itemDetailUI.SetActive(false);
     }
 }
