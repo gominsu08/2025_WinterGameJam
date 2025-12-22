@@ -10,6 +10,7 @@ namespace Work.KJY.Code.Item
         [SerializeField] private float floatingHeight = 0.5f;
         [SerializeField] private float floatingDuration = 1f;
         [SerializeField] private float defaultYPos;
+        
         private float rotValue;
         private bool _isMoving = false;
 
