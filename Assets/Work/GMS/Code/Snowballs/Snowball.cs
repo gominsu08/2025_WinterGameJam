@@ -43,23 +43,7 @@ namespace Work.GMS.Code.Snowballs
             snowCollider.transform.localScale = Vector3.one * _currentSnowRadius;
 
 
-            Ray ray = new Ray(transform.position, Vector3.down);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, _currentSnowRadius * 10, groundLayer))
-            {
-                // 너무 자주 파지 않도록 거리 제한
-                if (Vector3.Distance(lastDigPosition, hit.point) < 0.15f)
-                    return;
-
-                lastDigPosition = hit.point;
-
-
-
-                snowManager.RemoveAndDeformSnow(
-                    hit,
-                    _currentSnowRadius
-                );
-            }
+            
 
 
         }
@@ -67,13 +51,39 @@ namespace Work.GMS.Code.Snowballs
         public bool IsOnSnow()
         {
             Vector3 pos = snowCollider.ClosestPoint(pTrm.position);
+
+            Ray ray2 = new Ray(transform.position, Vector3.down);
+
+            if (Physics.Raycast(ray2, out RaycastHit hit2, _currentSnowRadius * 10, groundLayer))
+            {
+                // 너무 자주 파지 않도록 거리 제한
+                if (Vector3.Distance(lastDigPosition, hit2.point) < 0.15f)
+                {
+
+                }
+                else
+                {
+                    lastDigPosition = hit2.point;
+
+
+
+                    snowManager.RemoveAndDeformSnow(
+                        hit2,
+                        _currentSnowRadius
+                    );
+                }
+
+            }
+
             Ray ray = new Ray(pos, Vector3.down);
 
             if (Physics.Raycast(ray, out RaycastHit hit, currentRadius * 10, groundLayer))
             {
                 Debug.Log("Find Hit Object : " + hit.collider.gameObject.name);
-                return snowManager.HasSnow(hit);
+                return snowManager.HasSnow(hit);    
             }
+
+            
 
             Debug.Log("Not Find Hit Object");
             return false;
