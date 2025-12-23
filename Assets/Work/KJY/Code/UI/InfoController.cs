@@ -15,7 +15,7 @@ namespace Work.KJY.Code.UI
 
         private void Start()
         {
-            FadeManager.Instance.FadeOut();
+            IrisFadeManager.Instance.FadeOut();
             Bus<ChangeMoneyEvent>.Events += OnChangedMoney;
         }
 
