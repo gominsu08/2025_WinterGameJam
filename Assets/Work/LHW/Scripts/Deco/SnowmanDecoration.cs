@@ -376,7 +376,7 @@ public class SnowmanDecoration : MonoBehaviour
             // [중요] previewInstance만 null로 만들어 다음 프레임에 새 프리뷰가 생기게 함
             // pendingPlaceItem은 그대로 유지하여 '연속 설치' 가능하게 함
             previewInstance = null; 
-            
+            SoundManager.Instance.Play2DSFX("DECO");
             Debug.Log("데코레이션 적용 완료: " + pendingPlaceItem.itemName);
         }
 
@@ -497,7 +497,7 @@ public class SnowmanDecoration : MonoBehaviour
     public void SellingSnowman()
     {
         sellingPannel.SetActive(true);
-
+        SoundManager.Instance.Play2DSFX("POPUP");
         minusPriceText.text = "";
 
         int snowPrice = Mathf.RoundToInt((currentSnowmanData.snowmanUpSize + currentSnowmanData.snowmanDownSize) * 500);
