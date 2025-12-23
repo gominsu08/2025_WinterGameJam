@@ -439,18 +439,18 @@ public class SnowmanDecoration : MonoBehaviour
             decoPrice += deco.itemValuePrice;
         }
 
-        int totalPrice = snowPrice + decoPrice;
+        int totalPrice = snowPrice + decoPrice + 300;
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {
-            totalPrice -= 500;
+            totalPrice -= 5000;
             minusPriceText.text += "-500$ | 몸통보다 머리가 커요!\n";
         }
 
         if(currentSnowmanData.decorationItems.Count == 0)
         {
-            totalPrice -= 200;
-            minusPriceText.text += "-200$ | 장식이 하나도 없어요!\n";
+            totalPrice -= 2000;
+            minusPriceText.text += "-2000$ | 장식이 하나도 없어요!\n";
         }
 
         if(currentSnowmanData.decorationItems.Count >= 30)
