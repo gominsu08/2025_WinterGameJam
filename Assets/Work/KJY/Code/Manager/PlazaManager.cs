@@ -12,10 +12,6 @@ namespace Work.KJY.Code.Manager
     {
         [SerializedDictionary("level", "Need Money")]
         public SerializedDictionary<int, int> levelDict = new();
-
-        [SerializeField] private List<GameObject> level1Objs = new(); 
-        [SerializeField] private List<GameObject> level2Objs = new(); 
-        [SerializeField] private List<GameObject> level3Objs = new(); 
         
         private int _curLevel = 1;
 
@@ -25,22 +21,22 @@ namespace Work.KJY.Code.Manager
             _curLevel = DataContainer.Instance.PlazaLevel;
 
             // 모든 오브젝트를 비활성화하여 초기 상태를 깨끗하게 설정합니다.
-            foreach (GameObject obj in level1Objs) { obj.SetActive(false); }
-            foreach (GameObject obj in level2Objs) { obj.SetActive(false); }
-            foreach (GameObject obj in level3Objs) { obj.SetActive(false); }
+            foreach (GameObject obj in LevelObjectDataManager.Instance.level1Objs) { obj.SetActive(false); }
+            foreach (GameObject obj in LevelObjectDataManager.Instance.level2Objs) { obj.SetActive(false); }
+            foreach (GameObject obj in LevelObjectDataManager.Instance.level3Objs) { obj.SetActive(false); }
 
             // 불러온 레벨에 맞춰 오브젝트들을 누적하여 활성화합니다.
             if (_curLevel >= 2)
             {
-                foreach (GameObject obj in level1Objs) { obj.SetActive(true); }
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level1Objs) { obj.SetActive(true); }
             }
             if (_curLevel >= 3)
             {
-                foreach (GameObject obj in level2Objs) { obj.SetActive(true); }
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level2Objs) { obj.SetActive(true); }
             }
             if (_curLevel >= 4)
             {
-                foreach (GameObject obj in level3Objs) { obj.SetActive(true); }
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level3Objs) { obj.SetActive(true); }
             }
         }
 
@@ -61,7 +57,7 @@ namespace Work.KJY.Code.Manager
 
             if (_curLevel == 2)
             {
-                foreach (GameObject obj in level1Objs)
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level1Objs)
                 {
                     obj.SetActive(true);
                 }
@@ -69,7 +65,7 @@ namespace Work.KJY.Code.Manager
 
             if (_curLevel == 3)
             {
-                foreach (GameObject obj in level2Objs)
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level2Objs)
                 {
                     obj.SetActive(true);
                 }
@@ -77,7 +73,7 @@ namespace Work.KJY.Code.Manager
 
             if (_curLevel == 4)
             {
-                foreach (GameObject obj in level3Objs)
+                foreach (GameObject obj in LevelObjectDataManager.Instance.level3Objs)
                 {
                     obj.SetActive(true);
                 }

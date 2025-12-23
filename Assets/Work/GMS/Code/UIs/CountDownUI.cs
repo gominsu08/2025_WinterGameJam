@@ -24,7 +24,7 @@ namespace Work.GMS.Code.UIs
         {
             IsCountingDown = true;
             countDownText.SetText("3");
-
+            countDownText.rectTransform.anchoredPosition = new Vector2(-moveDistance, 0);
 
             countDownText.rectTransform.DOAnchorPos(new Vector2(0, 0), moveDuration).OnComplete(() =>
             {

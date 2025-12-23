@@ -18,12 +18,18 @@ MonoBehaviour:
   m_PlatformId: 4e3c793746204150860bf175a9a41a05
   m_PlatformBuildProfile:
     rid: 8912654983584022736
-  m_OverrideGlobalSceneList: 0
+  m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
     m_path: Assets/Work/KJY/Scene/TitleScene.unity
   - m_enabled: 1
+    m_path: Assets/Work/LHW/Scenes/Tutorial.unity
+  - m_enabled: 1
+    m_path: Assets/Work/LHW/Scenes/Merge.unity
+  - m_enabled: 1
     m_path: Assets/Work/GMS/Scene/PlayerTestScene.unity
+  - m_enabled: 1
+    m_path: Assets/Work/LHW/Scenes/SnowmanDeco.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -1000,7 +1006,7 @@ MonoBehaviour:
         m_Development: 0
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
-        m_AllowDebugging: 0
+        m_AllowDebugging: 1
         m_WaitForManagedDebugger: 0
         m_ManagedDebuggerFixedPort: 0
         m_ExplicitNullChecks: 0
