@@ -24,7 +24,6 @@ namespace Work.GMS.Code.Characters.CharacterState
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Idle 진입");
             _movementCompo.SetCanMove(false);
             Bus<CharacterMoveEvent>.Events += HandleMoveDirectionChanged;
         }

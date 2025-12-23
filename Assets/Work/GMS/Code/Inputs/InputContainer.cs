@@ -35,7 +35,6 @@ namespace Work.Inputs
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.performed)
-                Debug.Log("상호작용 입력 감지");
                 Bus<CharacterInteractionEvent>.Raise(new CharacterInteractionEvent());
         }
 

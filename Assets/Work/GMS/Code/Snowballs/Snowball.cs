@@ -11,6 +11,7 @@ namespace Work.GMS.Code.Snowballs
     {
         [SerializeField] private SphereCollider snowCollider;
         [SerializeField] private ParticleSystem snowImpactEffect;
+        [SerializeField] private Transform pTrm;
         public SnowManager snowManager;
         public LayerMask groundLayer, obstacleLayer;
 
@@ -41,9 +42,10 @@ namespace Work.GMS.Code.Snowballs
             _currentSnowRadius = currentSnowRadius;
             snowCollider.transform.localScale = Vector3.one * _currentSnowRadius;
 
+
             Ray ray = new Ray(transform.position, Vector3.down);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, _currentSnowRadius + checkDistance, groundLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, _currentSnowRadius * 10, groundLayer))
             {
                 // 너무 자주 파지 않도록 거리 제한
                 if (Vector3.Distance(lastDigPosition, hit.point) < 0.15f)
@@ -60,17 +62,27 @@ namespace Work.GMS.Code.Snowballs
             }
 
 
-            Debug.Log($"[Snowball] SetSnow: Radius = {currentSnowRadius}");
         }
 
         public bool IsOnSnow()
         {
-            Ray ray = new Ray(transform.position, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit, currentRadius + checkDistance, groundLayer))
+            Vector3 pos = snowCollider.ClosestPoint(pTrm.position);
+            Ray ray = new Ray(pos, Vector3.down);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, currentRadius * 10, groundLayer))
             {
+                Debug.Log("Find Hit Object : " + hit.collider.gameObject.name);
                 return snowManager.HasSnow(hit);
             }
+
+            Debug.Log("Not Find Hit Object");
             return false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 pos = snowCollider.ClosestPoint(pTrm.position);
+            Debug.DrawRay(pos, Vector3.down ,Color.green);
         }
 
         private void OnCollisionEnter(Collision collision)
