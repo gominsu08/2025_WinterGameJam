@@ -19,11 +19,17 @@ namespace Work.Inputs
             _console.Player.Enable();
         }
 
-        ~InputContainer()
+        public void Destroy()
         {
             _console.Player.Disable();
             _console = null;
         }
+
+        //~InputContainer()
+        //{
+        //    _console.Player.Disable();
+        //    _console = null;
+        //}
 
 
         public void OnInteract(InputAction.CallbackContext context)

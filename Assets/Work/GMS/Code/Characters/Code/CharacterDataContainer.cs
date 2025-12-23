@@ -31,7 +31,7 @@ namespace Work.Characters
         private void OnDestroy()
         {
             Bus<GameStartEvent>.Events -= HandleStartGame;
-            
+            _inputContainer.Destroy();
         }
 
         private void Start()
