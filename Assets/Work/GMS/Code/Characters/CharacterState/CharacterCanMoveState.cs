@@ -19,6 +19,11 @@ namespace Work.GMS.Code.Characters.CharacterState
             _movementCompo = _character.GetCompo<CharacterMovementCompo>();
         }
 
+        ~CharacterCanMoveState()
+        {
+            Bus<CharacterMoveEvent>.Events -= HandleMoveDirectionChanged;
+        }
+
 
         public override void Enter()
         {

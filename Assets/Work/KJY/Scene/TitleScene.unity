@@ -5817,6 +5817,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1050200119328586993}
+        m_TargetAssemblyTypeName: Work.KJY.Code.Manager.SoundManager, Assembly-CSharp
+        m_MethodName: Play2DSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CLICK
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &557289696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6571,6 +6583,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1050200119328586993}
+        m_TargetAssemblyTypeName: Work.KJY.Code.Manager.SoundManager, Assembly-CSharp
+        m_MethodName: Play2DSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CLICK
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &820420785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7214,6 +7238,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 693336441452431595, guid: 7e1a0bc001f2c0746b7c1237f3a51ec9, type: 3}
   m_PrefabInstance: {fileID: 1273243872}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1275817908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275817909}
+  - component: {fileID: 1275817910}
+  m_Layer: 0
+  m_Name: Button Click Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275817909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275817908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1275817910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275817908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0c757fa3fafd046b8a5a1b6285a6cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonClickSoundKey: CLICK
 --- !u!1001 &1284287491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8239,6 +8308,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1050200119328586993}
+        m_TargetAssemblyTypeName: Work.KJY.Code.Manager.SoundManager, Assembly-CSharp
+        m_MethodName: Play2DSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CLICK
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1973605405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9113,6 +9194,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e87f61f0a092af408805606cc9bf8c1, type: 3}
+--- !u!114 &1050200119328586993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8610694227956501575, guid: 5e87f61f0a092af408805606cc9bf8c1, type: 3}
+  m_PrefabInstance: {fileID: 1050200119328586992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe92081913441f9998f349db278f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5578956935045451136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9267,6 +9359,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1622353241663221917, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622353241663221917, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetSfxVolume
       objectReference: {fileID: 0}
@@ -9311,8 +9407,16 @@ PrefabInstance:
       value: Setting Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 5945403025074999164, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945403025074999164, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetBgmVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075584762644656361, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 8060361440806604034, guid: bc753f870e9266e43a53148ef0239cf6, type: 3}
       propertyPath: m_Pivot.x
@@ -9438,3 +9542,4 @@ SceneRoots:
   - {fileID: 173170923}
   - {fileID: 2141852049}
   - {fileID: 1184542728}
+  - {fileID: 1275817909}

@@ -28,6 +28,8 @@ namespace Work.GMS.Code.Snowballs
         RenderTexture snowMask;
         Material snowMat;
 
+        public int snowLayerIndex = 0; // 0 = Snow (Inspector에서 조정 가능)
+
         void Awake()
         {
             // 🔹 TerrainData 복제 (원본 보호)
@@ -84,18 +86,20 @@ namespace Work.GMS.Code.Snowballs
         // --------------------------------------------------
         public bool HasSnow(RaycastHit hit)
         {
-            if (!(hit.collider is TerrainCollider))
-                return false;
-
-            if (data.alphamapLayers < 1)
-                return false;
+            if (data == null) return false;
+            if (!(hit.collider is TerrainCollider)) return false;
+            if (data.alphamapLayers <= snowLayerIndex) return false;
 
             Vector2 alphaCoord = GetAlphaCoord(hit);
-            int x = Mathf.Clamp((int)alphaCoord.x, 0, alphaWidth - 1);
-            int y = Mathf.Clamp((int)alphaCoord.y, 0, alphaHeight - 1);
+            // alphaCoord는 0..alphaWidth-1 범위를 사용하도록 계산되었을 때를 가정
+            int x = Mathf.Clamp(Mathf.FloorToInt(alphaCoord.x), 0, alphaWidth - 1);
+            int y = Mathf.Clamp(Mathf.FloorToInt(alphaCoord.y), 0, alphaHeight - 1);
 
             float[,,] map = data.GetAlphamaps(x, y, 1, 1);
-            return map[0, 0, 0] > 0.1f; // 0번 = Snow
+            float snowValue = map[0, 0, snowLayerIndex];
+
+            const float threshold = 0.1f;
+            return snowValue > threshold;
         }
 
         // --------------------------------------------------

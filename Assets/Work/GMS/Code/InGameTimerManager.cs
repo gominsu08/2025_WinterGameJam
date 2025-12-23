@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using Work.Characters;
 using Work.GMS.Code.Data;
 using Work.GMS.Code.UIs;
+using Work.KJY.Code.Manager;
 using Work.Utils.EventBus;
 
 namespace Work.GMS.Code
@@ -82,7 +83,8 @@ namespace Work.GMS.Code
         {
             DataContainer.Instance.SetRadius(_firstBallsize, _secondBallsize);
 
-            SceneManager.LoadScene("SnowmanDeco");
+            IrisFadeManager.Instance.FadeIn(1f, "SnowmanDeco");
+
         }
     }
 }

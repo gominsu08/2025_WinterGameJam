@@ -1,18 +1,10 @@
 ﻿using UnityEngine;
+using Work.KJY.Code.Core;
 
 namespace Work.GMS.Code.Data
 {
-    public class DataContainer : MonoBehaviour
+    public class DataContainer : MonoSingleton<DataContainer>
     {
-        public static DataContainer Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-        }
 
         private float _underSnowRadius = 0.3f;
         private float _upperSnowRadius = 0.3f;

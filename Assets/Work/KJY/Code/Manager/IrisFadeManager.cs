@@ -19,6 +19,8 @@ namespace Work.KJY.Code.Manager
         private int radiusId;
         private Coroutine bindRoutine;
         private bool initialized;
+        
+        private float _currentRadius = 1f;
 
         private void Start()
         {
@@ -58,10 +60,7 @@ namespace Work.KJY.Code.Manager
 
             if (!EnsureValidTarget())
                 yield break;
-
-            irisImage.gameObject.SetActive(true);
-            runtimeMat.SetFloat(radiusId, 0f);
-
+            
             if (openOnSceneLoaded)
                 FadeOut(defaultOpenDuration);
         }
@@ -87,11 +86,9 @@ namespace Work.KJY.Code.Manager
 
             KillTween();
             irisImage.gameObject.SetActive(true);
-
-            float start = runtimeMat.GetFloat(radiusId);
-
+            
             tween = DOTween.To(
-                () => start,
+                () => _currentRadius,
                 v =>
                 {
                     if (!EnsureValidTarget())
@@ -100,7 +97,7 @@ namespace Work.KJY.Code.Manager
                         return;
                     }
 
-                    start = v;
+                    _currentRadius = v;
                     runtimeMat.SetFloat(radiusId, v);
                 },
                 targetRadius,
@@ -113,6 +110,7 @@ namespace Work.KJY.Code.Manager
                 if (!EnsureValidTarget())
                     return;
 
+                _currentRadius = targetRadius;
                 runtimeMat.SetFloat(radiusId, targetRadius);
 
                 if (Mathf.Approximately(targetRadius, 1f))
@@ -151,7 +149,7 @@ namespace Work.KJY.Code.Manager
             irisImage.material = runtimeMat;
 
             irisImage.gameObject.SetActive(true);
-            runtimeMat.SetFloat(radiusId, 1f);
+            runtimeMat.SetFloat(radiusId, _currentRadius);
         }
 
         private RawImage FindIrisFadeRawImage()
