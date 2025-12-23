@@ -3,7 +3,9 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Work.GMS.Code.Data;
 
 public class SnowmanDecoration : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class SnowmanDecoration : MonoBehaviour
     public SnowmanData currentSnowmanData;
 
     private GameObject decoItem;
+    public int totalPrice;
 
     [Header("Snow Man")]
     [SerializeField, Range(0, 1f)] private float snowmanMergeRatio;
@@ -74,9 +77,8 @@ public class SnowmanDecoration : MonoBehaviour
 
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
-
+        InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
         InitDecoUI();
-        InitSnowmanData(0.45f, 0.35f);
     }
 
     private void Update()
@@ -461,7 +463,7 @@ public class SnowmanDecoration : MonoBehaviour
             decoPrice += deco.itemValuePrice;
         }
 
-        int totalPrice = snowPrice + decoPrice + 300;
+        totalPrice = snowPrice + decoPrice + 300;
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {
@@ -506,6 +508,8 @@ public class SnowmanDecoration : MonoBehaviour
         sellingPannel.SetActive(false);
         minusPriceText.text = "";
 
-        InitSnowmanData(35, 35);
+        Inventory.Instance.AddMoney(totalPrice);
+
+        SceneManager.LoadScene("Merge");
     }
 }

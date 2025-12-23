@@ -34,5 +34,10 @@ namespace Work.GMS.Code.Data
             _gold = gold;
         }
 
+        public Vector2 GetSnowmanSize()
+        {
+            return new Vector2(_upperSnowRadius, _underSnowRadius);
+        }
+
     }
 }
