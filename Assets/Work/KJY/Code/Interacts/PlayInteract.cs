@@ -26,7 +26,7 @@ namespace Work.KJY.Code.Interacts
         {
             if (_isInPlayer)
             {
-                IrisFadeManager.Instance.FadeIn(1f, playSceneName);
+                UseBuffItem.Instance.OpenUseBuffPannel();
             }
         }
 

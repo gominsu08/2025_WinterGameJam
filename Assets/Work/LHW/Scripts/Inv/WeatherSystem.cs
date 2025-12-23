@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using Work.Utils.EventBus;
@@ -32,9 +32,11 @@ public class WeatherSystem : MonoBehaviour
     public GameObject cloudyEffect;
     public GameObject sunnyEffect;
 
+    public bool isIngame;
+
     void Start()
     {
-        if(!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈") )StartCoroutine(Co_TestRoutine());
+        if(!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈") && isIngame)StartCoroutine(Co_TestRoutine());
         else ChangeWeather(WeatherType.Snowy);
     }
 
@@ -43,12 +45,12 @@ public class WeatherSystem : MonoBehaviour
     /// </summary>
     IEnumerator Co_TestRoutine()
     {
-        ChangeWeather(WeatherType.Sunny);
         while (true)
         {
-            yield return new WaitForSeconds(weatherChangeInterval);
             ChangeWeather((WeatherType)Random.Range(0, 4));
+            yield return new WaitForSeconds(weatherChangeInterval);
         }
+        
     }
     /// <summary>
     /// 날씨 변경 메서드
