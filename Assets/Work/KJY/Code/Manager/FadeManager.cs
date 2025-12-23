@@ -20,14 +20,6 @@ namespace Work.KJY.Code.Manager
             FadeOut();
         }
         
-        private void Update()
-        {
-            if (Keyboard.current.qKey.wasPressedThisFrame)
-                FadeIn(1f, "");
-            else if (Keyboard.current.eKey.wasPressedThisFrame)
-                FadeOut();
-        }
-
         public void FadeIn(float duration = 1f, string sceneName = "")
         {
             Fade(1f, duration, true, sceneName);

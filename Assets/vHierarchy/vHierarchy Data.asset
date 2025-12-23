@@ -20,4 +20,8 @@ MonoBehaviour:
         keys: []
         values: []
   bookmarks: []
-  bookmarkedScenePaths: []
+  bookmarkedScenePaths:
+  - Assets/Work/KJY/Scene/TitleScene.unity
+  - Assets/Work/KJY/Scene/InGameUI.unity
+  - Assets/Work/KJY/Scene/PlazaScene.unity
+  - Assets/Work/KJY/Scene/BoostItemTest.unity

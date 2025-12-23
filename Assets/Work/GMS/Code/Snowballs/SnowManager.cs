@@ -114,7 +114,7 @@ namespace Work.GMS.Code.Snowballs
 
             RemoveSnowAlphamap(hit, ballSize);
             DeformSnowHeight(hit, ballSize, hit.normal);
-            DigSnow(hit.point, (ballSize / 614.4f )* 2.5f);
+            DigSnow(hit.point, (ballSize / 614.4f )* 2.75f);
         }
 
         // --------------------------------------------------
@@ -125,6 +125,9 @@ namespace Work.GMS.Code.Snowballs
             Vector2 center = GetAlphaCoord(hit);
             int cx = (int)center.x;
             int cy = (int)center.y;
+
+            float slope = Mathf.Clamp01(Vector3.Dot(hit.normal, Vector3.up));
+            float depth = maxDigDepth * ballSize * slope;
 
             int radius = Mathf.RoundToInt(removeRadius * ballSize * alphaWidth / data.size.x);
             radius = Mathf.Max(1, radius);
@@ -149,14 +152,15 @@ namespace Work.GMS.Code.Snowballs
             {
                 for (int x = 0; x < width; x++)
                 {
-                    float dx = (startX + x) - cx;
-                    float dy = (startY + y) - cy;
+                    // 원형 체크 제거
+                    // float dx = (startX + x) - cx;
+                    // float dy = (startY + y) - cy;
+                    // if (dx * dx + dy * dy > radius * radius) continue;
 
-                    if (dx * dx + dy * dy > radius * radius)
-                        continue;
+                    float depth01 = Mathf.Clamp01(depth * 500f);
 
-                    map[y, x, 0] = 0f; // Snow 제거
-                    map[y, x, 1] = 1f; // Ground
+                    map[y, x, 0] = Mathf.Lerp(1f, 0f, depth01); // Snow
+                    map[y, x, 1] = Mathf.Lerp(0f, 1f, depth01); // Packed Snow
                 }
             }
 
@@ -176,13 +180,11 @@ namespace Work.GMS.Code.Snowballs
 
         public void DigSnow(Vector3 worldPos, float radius)
         {
-            Debug.Log("DigSnow called");
 
             Vector3 local = worldPos - terrain.transform.position;
 
             float u = local.x / terrain.terrainData.size.x;
             float v = local.z / terrain.terrainData.size.z;
-            Debug.Log($"UV: {u}, {v}");
             RenderTexture.active = snowMask;
 
             GL.PushMatrix();
@@ -253,21 +255,18 @@ namespace Work.GMS.Code.Snowballs
             {
                 for (int x = 0; x < width; x++)
                 {
-                    float dx = (startX + x) - cx;
-                    float dy = (startY + y) - cy;
-                    float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                    // 원형 체크 제거
+                    // float dx = (startX + x) - cx;
+                    // float dy = (startY + y) - cy;
+                    // float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                    // if (dist > radius) continue;
 
-                    if (dist > radius)
-                        continue;
-
-                    float falloff = 1f - (dist / radius);
-                    falloff = Mathf.SmoothStep(0f, 1f, falloff);
-
+                    float falloff = 1f; // 그냥 일정하게 감소
                     heights[y, x] -= depth * falloff;
                     heights[y, x] = Mathf.Clamp01(heights[y, x]);
                 }
             }
-           
+
             data.SetHeights(startX, startY, heights);
         }
 
