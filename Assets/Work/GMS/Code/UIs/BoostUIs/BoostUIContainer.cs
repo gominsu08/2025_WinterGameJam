@@ -14,9 +14,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
 
         private Dictionary<BoostType, BoostIcon> _boostIconIstance = new Dictionary<BoostType, BoostIcon>();
 
-        private const string SPEED = ">>";
-        private const string SIELD = "O";
-        private const string GLOWUP = "1.5x";
+        [SerializeField] private Sprite speed, glow, sield;
 
         private CharacterBoostCompo _boostCompo;
 
@@ -71,7 +69,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
                     {
                         if(!_boostIconIstance.ContainsKey(BoostType.SpeedBoost))
                         {
-                            BoostIcon icon = IconCreate(SPEED);
+                            BoostIcon icon = IconCreate(speed);
                             icon.SetColor(Color.cyan);
                             _boostIconIstance.Add(BoostType.SpeedBoost, icon);
                         }
@@ -82,7 +80,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
                     {
                         if (!_boostIconIstance.ContainsKey(BoostType.SnowBoost))
                         {
-                            BoostIcon icon = IconCreate(GLOWUP);
+                            BoostIcon icon = IconCreate(glow);
                             icon.SetColor(Color.white);
                             _boostIconIstance.Add(BoostType.SnowBoost, icon);
                         }
@@ -92,7 +90,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
                     {
                         if (!_boostIconIstance.ContainsKey(BoostType.SnowShield))
                         {
-                            BoostIcon icon = IconCreate(SIELD);
+                            BoostIcon icon = IconCreate(sield);
                             icon.SetColor(Color.yellow);
                             _boostIconIstance.Add(BoostType.SnowShield, icon);
                         }
@@ -106,7 +104,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
             }
         }
         
-        public BoostIcon IconCreate(string str)
+        public BoostIcon IconCreate(Sprite str)
         {
             BoostIcon icon = Instantiate(boostIconPrefab, transform).GetComponent<BoostIcon>();
             icon.SetIcon(str);
