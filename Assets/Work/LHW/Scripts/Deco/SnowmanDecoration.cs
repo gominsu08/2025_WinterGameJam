@@ -79,7 +79,11 @@ public class SnowmanDecoration : MonoBehaviour
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
         if(DataContainer.Instance != null)InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
-        else InitSnowmanData(10f, 10f);
+        else
+        {
+            InitSnowmanData(10f, 10f);
+            Debug.LogWarning("데이터 컨테이너가 존재하지 않습니다, 기본 사이즈를 불러옵니다");
+        }
         
         InitDecoUI();
     }
