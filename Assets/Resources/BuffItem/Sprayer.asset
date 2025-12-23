@@ -16,4 +16,4 @@ MonoBehaviour:
   itemDescription: "\uBD84\uBB34\uAE30\uB97C \uC0AC\uC6A9\uD558\uBA74 \uB208\uC744
     \uAD74\uB9B4\uB54C \uB354\uC6B1 \uC26C\uC6CC\uC694!"
   itemType: 1
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 2ef0b48e0c5084d75ba5d77f4b7ba013, type: 3}
