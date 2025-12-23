@@ -79,6 +79,15 @@ namespace Work.Characters.Code
             }
         }
 
+        public void Knockback()
+        {
+            _rbCompo.linearVelocity = Vector3.zero;
+            _rbCompo.angularVelocity = Vector3.zero;
+            Vector3 knockbackDirection = -_character.transform.forward;
+            float knockbackForce = 50f;
+            _rbCompo.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
+        }
+
         private void Move()
         {
             Vector3 moveVector = _direction * CurrentSpeed * CurrentSpeedMultiplier;
