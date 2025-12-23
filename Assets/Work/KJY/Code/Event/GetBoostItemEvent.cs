@@ -11,7 +11,7 @@ public enum BoostType
 
 namespace Work.KJY.Code.Event
 {
-    public class GetBoostItemEvent : IEvent
+    public struct GetBoostItemEvent : IEvent
     {
         public BoostType Type;
 

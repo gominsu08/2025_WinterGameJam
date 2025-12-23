@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Work.Characters.Stats.Code;
 using Work.Entities.Code;
+using Work.KJY.Code.Event;
+using Work.Utils.EventBus;
 
 namespace Work.Entities
 {
@@ -24,6 +26,13 @@ namespace Work.Entities
             GetEntityComponents();
             InitializeCompo();
             AfterInitCompo();
+
+            Bus<GetBoostItemEvent>.Events += HandleGetBoostItemEvent;
+        }
+
+        private void HandleGetBoostItemEvent(GetBoostItemEvent evt)
+        {
+
         }
 
         private void AfterInitCompo()

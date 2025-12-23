@@ -11,6 +11,7 @@ namespace Work.Characters.FSM.Code
 
         private Character _character;
         private StateMachine _stateMachine;
+        private bool _isCanChangeState = true;
 
         #endregion
 
@@ -30,6 +31,7 @@ namespace Work.Characters.FSM.Code
 
         public void ChangeState(string newState, bool isForcing = false)
         {
+            if (!_isCanChangeState) return;
             _stateMachine.ChangeState(newState, isForcing);
         }
 
@@ -42,6 +44,13 @@ namespace Work.Characters.FSM.Code
         {
             _stateMachine.DebugAllStateCheck();
         }
+
+        public void SetCanStateChange(bool isCanChangeState = true)
+        {
+            _isCanChangeState = isCanChangeState;
+        }
+
+
         #endregion
 
         #region Unity Built-In Func

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e7c2e99cc1148bf96408c43b223394, type: 3}
+  m_Name: IronBucket
+  m_EditorClassIdentifier: Assembly-CSharp::DecorationItem
+  itemName: "\uCCA0 \uC591\uB3D9\uC774"
+  itemDescription: "\uC870\uAE08 \uB0A1\uACE0 \uB354\uB7FD\uB2E4,\n\uC5B4\uB514\uC11C
+    \uC8FC\uC6CC\uC628\uAC78\uAE4C?"
+  itemType: 0
+  itemIcon: {fileID: 21300000, guid: 4d2cefb2b7e8f493990fe32668de9de9, type: 3}
+  decorationObjectIndex: 0
+  decorationType: 2
+  itemValuePrice: 800
+  isPlaceable: 1
+  placeablePrefab: {fileID: 0}
+  placementTarget: 0
+  surfaceOffset: 0.02
