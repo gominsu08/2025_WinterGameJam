@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Work.Characters;
 using Work.GMS.Code.Data;
 using Work.GMS.Code.UIs;
@@ -80,6 +81,8 @@ namespace Work.GMS.Code
         public void InGameEnd()
         {
             DataContainer.Instance.SetRadius(_firstBallsize, _secondBallsize);
+
+            SceneManager.LoadScene("SnowmanDeco");
         }
     }
 }

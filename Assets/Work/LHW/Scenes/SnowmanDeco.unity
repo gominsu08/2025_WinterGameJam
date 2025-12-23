@@ -1995,6 +1995,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 486b1d5ddd4db48f4b9332cbc45172d3, type: 2}
   - {fileID: 11400000, guid: 486b1d5ddd4db48f4b9332cbc45172d3, type: 2}
   - {fileID: 11400000, guid: 486b1d5ddd4db48f4b9332cbc45172d3, type: 2}
+  - {fileID: 11400000, guid: 72ad8f2ee0e8e4d359edd83de5176fc1, type: 2}
+  - {fileID: 11400000, guid: 2329c8569cb284d28893519b4e046e66, type: 2}
 --- !u!1 &1054617794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3867,6 +3869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decoCanvas: {fileID: 234795969}
   designCanvas: {fileID: 1552609419}
+  pivot: {fileID: 724989941}
   anim: {fileID: 1670242340}
 --- !u!4 &2144726604
 Transform:

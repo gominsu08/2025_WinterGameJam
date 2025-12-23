@@ -15,7 +15,8 @@ public class SnowmanDecoration : MonoBehaviour
     public SnowmanData currentSnowmanData;
 
     private GameObject decoItem;
-    public int totalPrice;
+    private int totalPrice;
+    private bool isOnUpParts = false;
 
     [Header("Snow Man")]
     [SerializeField, Range(0, 1f)] private float snowmanMergeRatio;
@@ -77,7 +78,8 @@ public class SnowmanDecoration : MonoBehaviour
 
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
-        InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        //InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        InitSnowmanData(35.7f, 35.7f);
         InitDecoUI();
     }
 
@@ -296,7 +298,16 @@ public class SnowmanDecoration : MonoBehaviour
         if (pendingPlaceItem == null) return;
 
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            previewInstance.SetActive(false);
             return;
+        }
+        else if (previewInstance != null)
+        {
+            previewInstance.SetActive(true);
+        }
+
+        
 
         if (TryGetSnowmanSurfaceHit(out RaycastHit hit))
         {
@@ -308,10 +319,12 @@ public class SnowmanDecoration : MonoBehaviour
                     pendingPlaceItem = null;
                     return;
                 }
-                previewInstance = Instantiate(prefab, placeablesRoot ? placeablesRoot : transform);
+                previewInstance = Instantiate(prefab, isOnUpParts ? snowmanUpPart : snowmanDownPart);
                 previewInstance.tag = "Decoration";
                 SetPreviewVisual(previewInstance, true);
             }
+
+            previewInstance.transform.parent = isOnUpParts ? snowmanUpPart : snowmanDownPart;
 
             // 위치/회전 업데이트
             float offset = GetSurfaceOffset(pendingPlaceItem);
@@ -374,8 +387,16 @@ public class SnowmanDecoration : MonoBehaviour
         else
         {
             // snowmanObject 미지정이면 Up/Down 기준으로라도 체크
-            if (snowmanUpPart != null && hit.transform.IsChildOf(snowmanUpPart)) return true;
-            if (snowmanDownPart != null && hit.transform.IsChildOf(snowmanDownPart)) return true;
+            if (snowmanUpPart != null && hit.transform.IsChildOf(snowmanUpPart))
+            {
+                isOnUpParts = true;
+                return true;
+            }
+            if (snowmanDownPart != null && hit.transform.IsChildOf(snowmanDownPart))
+            {
+                isOnUpParts = false;
+                return true;
+            }
 
             // 둘 다 아니면 실패
             return false;

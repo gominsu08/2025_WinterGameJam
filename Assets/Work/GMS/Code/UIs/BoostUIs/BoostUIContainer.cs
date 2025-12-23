@@ -25,6 +25,11 @@ namespace Work.GMS.Code.UIs.BoostUIs
             Bus<GetBoostItemEvent>.Events += HandleBoostItemEevent;
         }
 
+        private void OnDestroy()
+        {
+            Bus<GetBoostItemEvent>.Events -= HandleBoostItemEevent;
+        }
+
         private void Start()
         {
             _boostCompo = characterDataContainer.CurrentCharacter.GetCompo<CharacterBoostCompo>();

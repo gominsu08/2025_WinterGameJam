@@ -1306,7 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21a30866f4138a4fb954413d7177e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playTime: 120
+  playTime: 30
   characterDataContainer: {fileID: 469345128}
   countDownUI: {fileID: 2018473425}
 --- !u!4 &490689230
