@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Work.KJY.Code.Core;
 using DG.Tweening;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Work.KJY.Code.Manager
@@ -15,37 +13,42 @@ namespace Work.KJY.Code.Manager
         private Tween fadeTween;
         private bool isFaded;
 
+        private RectTransform fadeRect;
+
+        private void Awake()
+        {
+            fadeRect = fadeObject.rectTransform;
+        }
+
         private void Start()
         {
             FadeOut();
         }
-        
+
         public void FadeIn(float duration = 1f, string sceneName = "")
         {
-            Fade(1f, duration, true, sceneName);
+            Fade(Vector3.zero, duration, true, sceneName);
         }
 
         public void FadeOut(float duration = 1f)
         {
-            Fade(0f, duration, false);
+            Fade(Vector3.one, duration, false);
         }
 
-        private void Fade(float targetAlpha, float duration, bool targetFaded, string sceneName = "")
+        private void Fade(Vector3 targetScale, float duration, bool targetFaded, string sceneName = "")
         {
-            if (fadeObject == null) return;
-
-            if (Mathf.Approximately(fadeObject.color.a, targetAlpha))
+            if (fadeObject == null)
                 return;
-            
+
             if (fadeTween != null && fadeTween.IsActive())
                 return;
 
             fadeTween?.Kill();
 
-            if (targetAlpha > 0)
-                fadeObject.gameObject.SetActive(true);
+            fadeObject.gameObject.SetActive(true);
 
-            fadeTween = fadeObject.DOFade(targetAlpha, duration)
+            fadeTween = fadeRect
+                .DOScale(targetScale, duration)
                 .SetEase(Ease.InOutQuad)
                 .SetUpdate(true)
                 .OnComplete(() =>
@@ -55,11 +58,9 @@ namespace Work.KJY.Code.Manager
                     if (!isFaded)
                         fadeObject.gameObject.SetActive(false);
 
-                    if (sceneName != "")
+                    if (!string.IsNullOrEmpty(sceneName))
                         SceneManager.LoadScene(sceneName);
                 });
         }
-
-
     }
 }

@@ -8,7 +8,7 @@ namespace Work.KJY.Code.UI
         [SerializeField] private string sceneName;
         public void StartButton()
         {
-            FadeManager.Instance.FadeIn(2, sceneName);
+            IrisFadeManager.Instance.FadeIn(2, sceneName);
         }
 
         public void SettingButton()
