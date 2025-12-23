@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using Work.Characters.FSM.Code;
 using Work.Characters.Stats.Code;
