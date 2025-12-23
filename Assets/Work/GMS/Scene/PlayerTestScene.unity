@@ -1128,6 +1128,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2046646765}
+  - {fileID: 1564873724}
   m_Father: {fileID: 1962234776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &391525891
@@ -1277,6 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentCharacter>k__BackingField: {fileID: 1962234777}
+  isMainScene: 0
 --- !u!1 &490689228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,6 +1592,7 @@ MonoBehaviour:
   maxDigDepth: 0.002
   snowRenderer: {fileID: 1291803913}
   snowMaskResolution: 2048
+  snowLayerIndex: 0
 --- !u!4 &792641664
 Transform:
   m_ObjectHideFlags: 0
@@ -2232,6 +2235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowCollider: {fileID: 963019223}
   snowImpactEffect: {fileID: 83642670502685888, guid: a406d647076659a498cc825058921b50, type: 3}
+  pTrm: {fileID: 1564873724}
   snowManager: {fileID: 792641663}
   groundLayer:
     serializedVersion: 2
@@ -3324,6 +3328,37 @@ MonoBehaviour:
   rainyIcon: {fileID: -219009332, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
   snowyIcon: {fileID: 1793435637, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
   cloudyIcon: {fileID: 1782849318, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
+--- !u!1 &1564873723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1564873724}
+  m_Layer: 0
+  m_Name: Ming
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1564873724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564873723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391525890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578526248
 GameObject:
   m_ObjectHideFlags: 0

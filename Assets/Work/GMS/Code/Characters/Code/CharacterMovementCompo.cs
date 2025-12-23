@@ -23,6 +23,7 @@ namespace Work.Characters.Code
         public bool IsMoveing => _direction != Vector3.zero && IsCanMove;
         public float CurrentSpeed { get; private set; }
         public float CurrentSpeedMultiplier { get; private set; } = 1f;
+        public Vector3 Direction => _direction;
 
         #endregion
 
