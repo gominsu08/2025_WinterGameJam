@@ -65,7 +65,6 @@ namespace Work.Characters.Code
             {
                 if (_direction == Vector3.zero) return;
                 //_direction.z = 0;
-                Debug.Log("밍");
 
                 Quaternion lookRotation = Quaternion.LookRotation(_direction);
                 float mul = 1 / _snowRadiuse;
@@ -74,7 +73,6 @@ namespace Work.Characters.Code
             }
             else //타겟이 없을때
             {
-                Debug.Log("밍");
                 if (_direction == Vector3.zero) return;
                 Quaternion lookRotation = Quaternion.LookRotation(_direction);
                 _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, lookRotation, Time.deltaTime * 10f);
@@ -86,7 +84,7 @@ namespace Work.Characters.Code
             _rbCompo.linearVelocity = Vector3.zero;
             _rbCompo.angularVelocity = Vector3.zero;
             Vector3 knockbackDirection = -_character.transform.forward;
-            float knockbackForce = 50f;
+            float knockbackForce = 5f;
             _rbCompo.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
         }
 
@@ -102,7 +100,9 @@ namespace Work.Characters.Code
 
             if (!IsCanMove)
             {
-                moveVector = Vector3.zero;
+                moveVector = Vector3.Lerp(_rbCompo.linearVelocity, Vector3.zero, Time.deltaTime * 10f); ;
+
+                
                 //_rbCompo.freezeRotation = false;
                 _rbCompo.angularVelocity = Vector3.zero;
             }

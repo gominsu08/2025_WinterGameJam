@@ -12,4 +12,9 @@ namespace Work.Utils.EventBus
 
         public static void Raise(T evt) => Events?.Invoke(evt);
     }
+
+    public struct GameStartEvent : IEvent
+    {
+
+    }
 }

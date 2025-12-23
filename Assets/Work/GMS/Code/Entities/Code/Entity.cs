@@ -26,13 +26,6 @@ namespace Work.Entities
             GetEntityComponents();
             InitializeCompo();
             AfterInitCompo();
-
-            Bus<GetBoostItemEvent>.Events += HandleGetBoostItemEvent;
-        }
-
-        private void HandleGetBoostItemEvent(GetBoostItemEvent evt)
-        {
-
         }
 
         private void AfterInitCompo()

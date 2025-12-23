@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using Work.Characters.Code;
+using Work.Characters.FSM.Code;
+using Work.GMS.Code.Characters.Code;
 using Work.Inputs;
+using Work.Utils.EventBus;
 
 namespace Work.Characters
 {
@@ -13,11 +16,52 @@ namespace Work.Characters
         public bool IsPushMode => CurrentCharacter.IsPushMode;
 
         private InputContainer _inputContainer;
+        private StateCompo _stateCompo;
+        private CharacterMovementCompo _mover;
+        private Vector3 _startPosition;
 
         private void Awake()
         {
             _inputContainer = new InputContainer();
             _inputContainer.Init();
+            _startPosition = CurrentCharacter.transform.position;
+            Bus<GameStartEvent>.Events += HandleStartGame;
+        }
+
+        private void Start()
+        {
+            _stateCompo = CurrentCharacter.GetCompo<StateCompo>();
+            _mover = CurrentCharacter.GetCompo<CharacterMovementCompo>();
+
+            _mover.SetCanMove(false);
+            _stateCompo.SetCanStateChange(false);
+        }
+
+        private void HandleStartGame(GameStartEvent evt)
+        {
+            SetCharacterStateChange();
+        }
+
+        public void SetCharacterStateChange(bool value = true)
+        {
+            _stateCompo.ChangeState("IDLE");
+            _stateCompo.SetCanStateChange(value);
+        }
+
+        public void SetCharacterMove(bool value = true)
+        {
+            _mover.SetCanMove(value);
+        }
+
+        public float ResetCharacter()
+        {
+            CurrentCharacter.transform.position = _startPosition;
+            CurrentCharacter.transform.rotation = Quaternion.identity;
+            _mover.SetCanMove(false);
+            SetCharacterStateChange(false);
+            float ballsize = CurrentCharacter.GetCompo<SnowBallCompo>().ResetCompo();
+
+            return ballsize;
         }
     }
 }
