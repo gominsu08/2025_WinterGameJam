@@ -28,11 +28,25 @@ public class Shop : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    void Start()
+    void OnEnable()
     {
         InitUI();
     }
 
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && shopUI.activeSelf)
+        {
+            if(itemDetailUI.activeSelf) HideDetailUI();
+            else ExitShop();
+        }
+    }
+
+    public void ExitShop()
+    {
+        this.gameObject.SetActive(false);
+    }
 
     //<summary>
     // 필터링에 맞춰 아이템 데이터 초기화
@@ -63,6 +77,7 @@ public class Shop : MonoBehaviour
         {
             Inventory.Instance.AddItem(data.item);
             Debug.Log("구매 완료: " + data.item.itemName + " | 가격: " + data.price + " | 남은 돈: " + Inventory.Instance.money);
+            InitUI();
             return true;
         }
         else
