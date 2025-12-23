@@ -1,15 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Work.Characters.Events;
 using Work.Utils.EventBus;
 
 namespace Work.KJY.Code.Interacts
 {
-    public class ShopInteract : MonoBehaviour
+    public class PlayInteract : MonoBehaviour
     {
         [SerializeField] private LayerMask playerMask;
-        [SerializeField] private GameObject shopUI;
-
+        
         private bool _isInPlayer;
 
         private void Start()
@@ -26,9 +24,7 @@ namespace Work.KJY.Code.Interacts
         {
             if (_isInPlayer)
             {
-                // 여기에 Shop UI 띄우면 될듯
-                shopUI.SetActive(true);
-                Debug.Log("상점 인터랙트 실행");
+                Debug.Log("플레이 씬 변경");
             }
         }
 

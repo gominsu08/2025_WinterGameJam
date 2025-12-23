@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,11 @@ public class Inventory : MonoBehaviour
         {
             AddItem(item);
         }
+    }
+
+    private void Start()
+    {
+        Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
     public void AddMoney(int amount)
