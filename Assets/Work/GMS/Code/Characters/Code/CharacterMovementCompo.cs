@@ -84,7 +84,7 @@ namespace Work.Characters.Code
             _rbCompo.linearVelocity = Vector3.zero;
             _rbCompo.angularVelocity = Vector3.zero;
             Vector3 knockbackDirection = -_character.transform.forward;
-            float knockbackForce = 50f;
+            float knockbackForce = 5f;
             _rbCompo.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
         }
 
@@ -100,7 +100,9 @@ namespace Work.Characters.Code
 
             if (!IsCanMove)
             {
-                moveVector = Vector3.zero;
+                moveVector = Vector3.Lerp(_rbCompo.linearVelocity, Vector3.zero, Time.deltaTime * 10f); ;
+
+                
                 //_rbCompo.freezeRotation = false;
                 _rbCompo.angularVelocity = Vector3.zero;
             }

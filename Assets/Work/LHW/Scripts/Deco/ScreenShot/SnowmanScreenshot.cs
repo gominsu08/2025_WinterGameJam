@@ -8,6 +8,8 @@ public class SnowmanScreenshot : MonoBehaviour
     public GameObject decoCanvas;
     public GameObject designCanvas;
 
+    public Animator anim;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F12))
@@ -49,5 +51,7 @@ public class SnowmanScreenshot : MonoBehaviour
 
         decoCanvas.SetActive(true);
         designCanvas.SetActive(false);
+
+        anim.SetTrigger("ScreenshotAnim");
     }
 }
