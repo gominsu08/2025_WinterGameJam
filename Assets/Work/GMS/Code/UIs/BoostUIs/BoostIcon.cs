@@ -7,6 +7,7 @@ namespace Work.GMS.Code.UIs.BoostUIs
 {
     public class BoostIcon : MonoBehaviour
     {
+       
         [SerializeField] private Image ming;
 
         public void SetIcon(Sprite str)

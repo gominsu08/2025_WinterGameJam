@@ -16,7 +16,7 @@ namespace Work.GMS.Code
 
     public class InGameTimerManager : MonoBehaviour
     {
-        [SerializeField] private float playTime;
+        private float playTime = 30;
         [SerializeField] private CharacterDataContainer characterDataContainer;
         [SerializeField] private CountDownUI countDownUI;
         [SerializeField] private TextMeshProUGUI text;
@@ -35,6 +35,11 @@ namespace Work.GMS.Code
         private void Awake()
         {
             CountDown();
+
+            if(Inventory.Instance.IsUsedBuffItem("분무기"))
+            {
+                playTime = 40;
+            }
         }
 
         public void CountDown()
