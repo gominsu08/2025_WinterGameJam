@@ -24,11 +24,15 @@ namespace Work.KJY.Code.Interacts
             }
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if ((playerMask & (1 << other.gameObject.layer)) != 0)
                 _isInPlayer = true;
-            else
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if ((playerMask & (1 << other.gameObject.layer)) != 0)
                 _isInPlayer = false;
         }
     }
