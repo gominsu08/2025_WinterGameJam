@@ -18,6 +18,9 @@ namespace Work.GMS.Code.Characters.Code
         [SerializeField] private float snowRadius = 0.3f;
 
 
+        private bool _isSnowy = false;
+
+
         private CharacterMovementCompo mover;
         private const float SNOW_GROWTH_RATE = 0.05f; // 눈덩이 반지름 증가율
         private float _multiplier = 1f;
@@ -34,6 +37,10 @@ namespace Work.GMS.Code.Characters.Code
             _boostCompo = Owner.GetCompo<CharacterBoostCompo>();
 
             WeatherType weather = weatherSystem.GetCurrentWeather();
+            if (weather == WeatherType.Snowy)
+            {
+                _isSnowy = true;
+            }
         }
 
         private void Update()
@@ -46,9 +53,9 @@ namespace Work.GMS.Code.Characters.Code
 
 
                 if (_boostCompo.IsSnowBoost || _boostCompo.IsSprintBoost)
-                    _multiplier = 1.5f;
+                    _multiplier = _isSnowy ? 2f : 1.5f;
                 else
-                    _multiplier = 1f;
+                    _multiplier = _isSnowy ? 1.5f : 1f;
 
 
                 CurrentSnowRadius += SNOW_GROWTH_RATE * _multiplier * Time.deltaTime;
