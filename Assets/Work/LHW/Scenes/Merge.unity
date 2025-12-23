@@ -18924,6 +18924,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree
       objectReference: {fileID: 0}
+    - target: {fileID: 1115793880587186828, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_Name
+      value: Deco1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115793880587186828, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1997247505667249423, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -18932,6 +18940,22 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8f0b8bec4816f5f4390906b82ff8737d, type: 2}
+    - target: {fileID: 4444558461230370346, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_Name
+      value: Deco2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444558461230370346, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603337159546281427, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_Name
+      value: Star
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521733012076075024, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6829522854758336184, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -18944,6 +18968,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 9b3fce9c521059b40aa5b8ca5c0bdaf6, type: 2}
+    - target: {fileID: 7119400304502939700, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377406300253566092, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8006958694806783865, guid: 23d9fbfef24437447b48994a9c2da05e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
