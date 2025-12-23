@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: STONE1
   clip: {fileID: 8300000, guid: 21fca4e695341f045850c250cec9f1bc, type: 3}
-  volume: 0.4
+  volume: 0.2
   loop: 0
   min_ListenDistance: 5
   max_ListenDistance: 500
