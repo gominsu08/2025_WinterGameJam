@@ -6,6 +6,7 @@ public enum WeatherType
 {
     Sunny,
     Rainy,
+    
     Snowy,
     Cloudy,
 }
@@ -52,4 +53,11 @@ public class WeatherSystem : MonoBehaviour
 
         Debug.Log("날씨가 " + newWeather.ToString() + "(으)로 변경되었습니다.");
     }
+
+    public WeatherType GetCurrentWeather()
+    {
+        Debug.Log("현재 날씨: " + currentWeather.ToString());
+        return currentWeather;
+    }
+
 }
