@@ -17,6 +17,11 @@ namespace Work.KJY.Code.Interacts
             Bus<CharacterInteractionEvent>.Events += OnInteractShop;
         }
 
+        private void OnDestroy()
+        {
+            Bus<CharacterInteractionEvent>.Events -= OnInteractShop;
+        }
+
         private void OnInteractShop(CharacterInteractionEvent evt)
         {
             if (_isInPlayer)

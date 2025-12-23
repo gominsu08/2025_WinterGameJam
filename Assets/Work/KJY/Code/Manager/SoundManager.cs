@@ -23,7 +23,7 @@ namespace Work.KJY.Code.Manager
         
         private List<AudioSource> _bgmSources;
 
-        private void Awake()
+        private void Start()
         {
             _bgmSources = new List<AudioSource>();
             for (int i = 0; i < bgmPoolSize; i++)
@@ -31,12 +31,6 @@ namespace Work.KJY.Code.Manager
                 var bgmSource = Instantiate(bgmSourcePrefab, transform);
                 _bgmSources.Add(bgmSource);
             }
-        }
-
-        private void Update()
-        {
-            if (Keyboard.current.wKey.wasPressedThisFrame)
-                PlayBGM("TEST");
         }
 
         public void PlayBGM(string key)

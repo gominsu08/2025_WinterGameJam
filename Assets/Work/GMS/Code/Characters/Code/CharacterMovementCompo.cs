@@ -65,7 +65,6 @@ namespace Work.Characters.Code
             {
                 if (_direction == Vector3.zero) return;
                 //_direction.z = 0;
-                Debug.Log("밍");
 
                 Quaternion lookRotation = Quaternion.LookRotation(_direction);
                 float mul = 1 / _snowRadiuse;
@@ -74,7 +73,6 @@ namespace Work.Characters.Code
             }
             else //타겟이 없을때
             {
-                Debug.Log("밍");
                 if (_direction == Vector3.zero) return;
                 Quaternion lookRotation = Quaternion.LookRotation(_direction);
                 _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, lookRotation, Time.deltaTime * 10f);

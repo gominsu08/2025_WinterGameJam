@@ -21,6 +21,6 @@ MonoBehaviour:
   decorationType: 3
   itemValuePrice: 52
   isPlaceable: 1
-  placeablePrefab: {fileID: 0}
-  placementTarget: 0
+  placeablePrefab: {fileID: 1689540270664082939, guid: 3e25bd35cbac73440b4b6e87561ddc1c, type: 3}
+  placementTarget: 1
   surfaceOffset: 0.02
