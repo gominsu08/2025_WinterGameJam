@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Work.Characters.Events;
+using Work.KJY.Code.Manager;
 using Work.Utils.EventBus;
 
 namespace Work.KJY.Code.Interacts
@@ -7,6 +8,7 @@ namespace Work.KJY.Code.Interacts
     public class PlayInteract : MonoBehaviour
     {
         [SerializeField] private LayerMask playerMask;
+        [SerializeField] private string playSceneName = "InGameScene";
         
         private bool _isInPlayer;
 
@@ -24,7 +26,7 @@ namespace Work.KJY.Code.Interacts
         {
             if (_isInPlayer)
             {
-                Debug.Log("플레이 씬 변경");
+                IrisFadeManager.Instance.FadeIn(1f, playSceneName);
             }
         }
 
