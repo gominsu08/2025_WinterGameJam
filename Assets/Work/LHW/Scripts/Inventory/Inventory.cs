@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public int money;
 
     public List<ItemBase> defaultItems;
+    public List<ItemBase> usagedBuffItems;
 
     private Dictionary<ItemBase, int> itemCounts = new Dictionary<ItemBase, int>();
     
@@ -57,6 +58,16 @@ public class Inventory : MonoBehaviour
         Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
+    public bool IsUsedBuffItem(string ItemName)
+    {
+        foreach(var item in usagedBuffItems)
+        {
+            if(item.itemName == ItemName)
+                return true;
+        }
+        return false;
+    }
+
     public bool CheckMoney(int amount)
     {
         if(money < amount) 
@@ -86,6 +97,43 @@ public class Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public bool UseBuffItem(ItemBase item)
+    {
+        if(usagedBuffItems.Contains(item))
+        {
+            Debug.LogWarning("이미 사용한 버프 아이템입니다.");
+            return false;
+        }
+
+        if(RemoveItem(item))
+        {
+            usagedBuffItems.Add(item);
+            Debug.Log("버프 아이템 사용: " + item.itemName);
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("아이템이 인벤토리에 없습니다: " + item.itemName);
+            return false;
+        }
+    }
+
+    public bool UnUseBuffItem(ItemBase item)
+    {
+        if(usagedBuffItems.Contains(item))
+        {
+            usagedBuffItems.Remove(item);
+            AddItem(item);
+            Debug.Log("버프 아이템 제거: " + item.itemName);
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("사용 중인 버프 아이템이 아닙니다: " + item.itemName);
+            return false;
+        }
     }
 
     public List<ItemBase> GetAllItems()

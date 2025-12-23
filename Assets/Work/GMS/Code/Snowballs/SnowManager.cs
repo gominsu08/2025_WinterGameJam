@@ -163,8 +163,8 @@ namespace Work.GMS.Code.Snowballs
 
                     float depth01 = Mathf.Clamp01(depth * 500f);
 
-                    map[y, x, 0] = Mathf.Lerp(1f, 0f, depth01); // Snow
-                    map[y, x, 1] = Mathf.Lerp(0f, 1f, depth01); // Packed Snow
+                    map[y, x, 0] = 0; // Snow
+                    map[y, x, 1] = 1; // Packed Snow
                 }
             }
 

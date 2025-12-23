@@ -11,11 +11,14 @@ namespace Work.GMS.Code.Characters.Code
         public Entity Owner { get; private set; }
         public float CurrentSnowRadius { get; private set; } = 0.3f;
 
-
+        [SerializeField] private WeatherSystem weatherSystem;
         [SerializeField] private Transform particleTrm;
         [SerializeField] private Transform snowballTransform;
         [SerializeField] private Snowball snowball;
         [SerializeField] private float snowRadius = 0.3f;
+
+
+        private bool _isSnowy = false;
 
 
         private CharacterMovementCompo mover;
@@ -32,6 +35,12 @@ namespace Work.GMS.Code.Characters.Code
 
             mover = Owner.GetCompo<CharacterMovementCompo>();
             _boostCompo = Owner.GetCompo<CharacterBoostCompo>();
+
+            WeatherType weather = weatherSystem.GetCurrentWeather();
+            if (weather == WeatherType.Snowy)
+            {
+                _isSnowy = true;
+            }
         }
 
         private void Update()
@@ -42,10 +51,12 @@ namespace Work.GMS.Code.Characters.Code
             if (mover.IsMoveing && snowball.IsOnSnow())
             {
 
-                if (_boostCompo.IsSnowBoost)
-                    _multiplier = 1.5f;
+
+                if (_boostCompo.IsSnowBoost || _boostCompo.IsSprintBoost)
+                    _multiplier = _isSnowy ? 2f : 1.5f;
                 else
-                    _multiplier = 1f;
+                    _multiplier = _isSnowy ? 1.5f : 1f;
+
 
                 CurrentSnowRadius += SNOW_GROWTH_RATE * _multiplier * Time.deltaTime;
 
