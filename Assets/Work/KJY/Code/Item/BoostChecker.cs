@@ -15,6 +15,7 @@ namespace Work.KJY.Code.Item
             if ((playerLayer & (1 << other.gameObject.layer)) != 0)
             {
                 Bus<GetBoostItemEvent>.Raise(new GetBoostItemEvent(boostType));
+                Destroy(gameObject);
             }
         }
     }
