@@ -57,6 +57,14 @@ public class Inventory : MonoBehaviour
         Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
+    public bool CheckMoney(int amount)
+    {
+        if(money < amount) 
+            return false;
+        else 
+            return true;
+    }
+
     public bool SpendMoney(int amount)
     {
         if(money < amount) return false;
