@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Work.KJY.Code.Event;
 using Work.Utils.EventBus;
 
 public class Inventory : MonoBehaviour
@@ -32,13 +33,14 @@ public class Inventory : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        //Bus<>
+        Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
     public bool SpendMoney(int amount)
     {
         if(money < amount) return false;
         money -= amount;
+        Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
         return true;
     }
 
