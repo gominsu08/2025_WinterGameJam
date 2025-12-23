@@ -36,7 +36,10 @@ namespace Work.GMS.Code.Characters.Code
 
         private void Update()
         {
-            if (mover.IsMoveing)
+
+            Debug.Log(snowball.IsOnSnow() ? "눈위에 있음" : "눈위에 없음");
+
+            if (mover.IsMoveing && snowball.IsOnSnow())
             {
 
                 if (_boostCompo.IsSnowBoost)
