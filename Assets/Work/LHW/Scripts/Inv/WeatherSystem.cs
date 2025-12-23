@@ -34,21 +34,17 @@ public class WeatherSystem : MonoBehaviour
 
     void Start()
     {
-        if(!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈") )StartCoroutine(Co_TestRoutine());
-        else ChangeWeather(WeatherType.Snowy);
+        Co_TestRoutine();
+        //if (!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈")) Co_TestRoutine();
+        //else ChangeWeather(WeatherType.Snowy);
     }
 
     /// <summary>
     /// 테스트용 코루틴 | 추후 삭제 예정
     /// </summary>
-    IEnumerator Co_TestRoutine()
+    void Co_TestRoutine()
     {
-        ChangeWeather(WeatherType.Sunny);
-        while (true)
-        {
-            yield return new WaitForSeconds(weatherChangeInterval);
-            ChangeWeather((WeatherType)Random.Range(0, 4));
-        }
+        ChangeWeather((WeatherType)Random.Range(0, 4));
     }
     /// <summary>
     /// 날씨 변경 메서드

@@ -14,6 +14,7 @@ namespace Work.KJY.Code.UI
         
         private void Start()
         {
+            Inventory.Instance.AddMoney(100000);
             interactPanel.SetActive(false);
             Bus<TreeInteractEvent>.Events += OnCanInteract;
             Bus<PlazaLevelUpgradedEvent>.Events += OnPlazaLevelUpgraded;
@@ -42,7 +43,7 @@ namespace Work.KJY.Code.UI
         private void UpdateUI()
         {
             string defaultLevelText = "Lv.";
-            string curLevel = PlazaManager.Instance.GetCurLevel().ToString();
+            string curLevel = (PlazaManager.Instance.GetCurLevel() - 1).ToString();
             curLevelText.SetText(defaultLevelText + curLevel);
 
             if (PlazaManager.Instance.IsMaxLevel)

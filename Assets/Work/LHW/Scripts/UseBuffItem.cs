@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UseBuffItem : MonoBehaviour
@@ -9,12 +10,21 @@ public class UseBuffItem : MonoBehaviour
     public ItemBase SprayerItem;
     public ItemBase TeruTeruBozuItem;
 
+    public TMP_Text SprayerItemCountText;
+    public TMP_Text TeruTeruBozuItemCountText;
+
     public GameObject SprayerCheckIcon;
     public GameObject TeruTeruBozuCheckIcon;
 
     public bool isUsedSprayer;
     public bool isUsedTeruTeruBozu;
 
+
+    void FixedUpdate()
+    {
+        SprayerItemCountText.text = Inventory.Instance.GetItemCount(SprayerItem).ToString();
+        TeruTeruBozuItemCountText.text = Inventory.Instance.GetItemCount(TeruTeruBozuItem).ToString();
+    }
 
 
     public void UseSprayer()
@@ -30,8 +40,6 @@ public class UseBuffItem : MonoBehaviour
             Inventory.Instance.UnUseBuffItem(SprayerItem);
             SprayerCheckIcon.SetActive(false);
             isUsedSprayer = false;
-
-            Inventory.Instance.IsUsedBuffItem("물뿌리개");
         }
         
     }

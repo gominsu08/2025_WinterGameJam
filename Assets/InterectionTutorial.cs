@@ -24,8 +24,6 @@ public class InterectionTutorial : MonoBehaviour
     void Start()
     {
         renderer = GetComponent<MeshRenderer>();
-
-        IrisFadeManager.Instance.FadeOut(1);
     }
 
     private void OnTriggerEnter(Collider other)
