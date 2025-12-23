@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Work.KJY.Code.Core;
+using System.Collections.Generic;
 
 namespace Work.GMS.Code.Data
 {
@@ -15,6 +16,9 @@ namespace Work.GMS.Code.Data
         public float UpperSnowRadius => _upperSnowRadius;
         public float Gold => _gold;
         public int PlazaLevel => _plazaLevel;
+
+        
+
 
         public void SetRadius(float under, float upper)
         {
