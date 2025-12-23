@@ -19,6 +19,8 @@ public class SnowmanDecoration : MonoBehaviour
     private int totalPrice;
     private bool isOnUpParts = false;
 
+    [SerializeField] private GameObject noItemAlertPannel;
+
     [Header("Snow Man")]
     [SerializeField, Range(0, 1f)] private float snowmanMergeRatio;
     [SerializeField] public float snowmanRotationSpeed = 50f;
@@ -171,6 +173,15 @@ public class SnowmanDecoration : MonoBehaviour
             GameObject itemButtonObj = Instantiate(uiButtonPrefab, uiButtonParent);
 
             itemButtonObj.GetComponent<DecorationButtonInitiator>().Init(item as DecorationItem);
+        }
+
+        if(uiButtonParent.childCount == 0)
+        {
+            noItemAlertPannel.SetActive(true);
+        }
+        else
+        {
+            noItemAlertPannel.SetActive(false);
         }
     }
 
