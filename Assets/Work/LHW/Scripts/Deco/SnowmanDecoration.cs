@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SnowmanDecoration : MonoBehaviour
 {
@@ -49,6 +50,11 @@ public class SnowmanDecoration : MonoBehaviour
     [SerializeField] private TMP_Text minusPriceText;
     [SerializeField] private TMP_Text sellingTotalPriceText;
 
+    [Header("Stamp")]
+    [SerializeField] private RawImage stampImage;
+    [SerializeField] private Sprite successStamp;
+    [SerializeField] private Sprite failedStamp;
+
     private DecorationItem pendingPlaceItem;
     private DecorationButtonInitiator currentPlacingButton;
     private GameObject previewInstance;
@@ -70,7 +76,7 @@ public class SnowmanDecoration : MonoBehaviour
         // currentDecoType = DecorationType.Muffler;
 
         InitDecoUI();
-        InitSnowmanData(35, 35);
+        InitSnowmanData(0.45f, 0.35f);
     }
 
     private void Update()
@@ -424,6 +430,8 @@ public class SnowmanDecoration : MonoBehaviour
     {
         sellingPannel.SetActive(true);
 
+        minusPriceText.text = "";
+
         int snowPrice = Mathf.RoundToInt((currentSnowmanData.snowmanUpSize + currentSnowmanData.snowmanDownSize) * 500);
         int decoPrice = 0;
         foreach(var deco in currentSnowmanData.decorationItems)
@@ -431,30 +439,39 @@ public class SnowmanDecoration : MonoBehaviour
             decoPrice += deco.itemValuePrice;
         }
 
-        int totalPrice = snowPrice + decoPrice;
+        int totalPrice = snowPrice + decoPrice + 300;
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {
-            totalPrice -= 500;
+            totalPrice -= 5000;
             minusPriceText.text += "-500$ | 몸통보다 머리가 커요!\n";
         }
 
         if(currentSnowmanData.decorationItems.Count == 0)
         {
-            totalPrice -= 200;
-            minusPriceText.text += "\n-200$ | 장식이 하나도 없어요!\n";
+            totalPrice -= 2000;
+            minusPriceText.text += "-2000$ | 장식이 하나도 없어요!\n";
         }
 
         if(currentSnowmanData.decorationItems.Count >= 30)
         {
             totalPrice -= 5000;
-            minusPriceText.text += "\n-5000$ | 장식이 이상하게 너무 많아요!\n";
+            minusPriceText.text += "-5000$ | 장식이 이상하게 너무 많아요!\n";
         }
         
         if(currentSnowmanData.snowmanUpSize < 0.5f || currentSnowmanData.snowmanDownSize < 0.5f)
         {
             totalPrice -= 500;
-            minusPriceText.text += "\n-500$ | 눈사람이 너무 작아요!\n";
+            minusPriceText.text += "-500$ | 눈사람이 너무 작아요!\n";
+        }
+
+        if(totalPrice < 0)
+        {
+            stampImage.texture = failedStamp.texture;
+        }
+        else
+        {
+            stampImage.texture = successStamp.texture;
         }
 
         sellingDecoPriceText.text = "장식 가격: " + decoPrice + "$";
