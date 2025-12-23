@@ -33,6 +33,11 @@ namespace Work.Characters.Code
             Bus<CharacterMoveEvent>.Events += HandleMoveEvent;
         }
 
+        private void OnDestroy()
+        {
+            Bus<CharacterMoveEvent>.Events -= HandleMoveEvent;
+        }
+
         private void HandleMoveEvent(CharacterMoveEvent evt)
         {
             SetTarget();

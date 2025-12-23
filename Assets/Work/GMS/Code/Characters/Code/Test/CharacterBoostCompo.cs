@@ -32,6 +32,7 @@ namespace Work.GMS.Code.Characters.Code.Test
 
         public void OnDestroy()
         {
+            Bus<GetBoostItemEvent>.Events -= HandleBoostItemEevent;
             OnChangeValueEvent = null;
         }
 
