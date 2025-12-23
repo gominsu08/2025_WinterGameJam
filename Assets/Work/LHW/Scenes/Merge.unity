@@ -19807,6 +19807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentCharacter>k__BackingField: {fileID: 1206075191}
+  isMainScene: 1
 --- !u!4 &1519086468
 Transform:
   m_ObjectHideFlags: 0
