@@ -42,10 +42,11 @@ namespace Work.GMS.Code.Characters.Code
             if (mover.IsMoveing && snowball.IsOnSnow())
             {
 
-                if (_boostCompo.IsSnowBoost)
+                if (_boostCompo.IsSnowBoost || _boostCompo.IsSprintBoost)
                     _multiplier = 1.5f;
                 else
                     _multiplier = 1f;
+
 
                 CurrentSnowRadius += SNOW_GROWTH_RATE * _multiplier * Time.deltaTime;
 
