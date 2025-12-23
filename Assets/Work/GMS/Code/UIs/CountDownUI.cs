@@ -22,7 +22,6 @@ namespace Work.GMS.Code.UIs
 
         public void CountDown(Action action)
         {
-            countDownText.rectTransform.anchoredPosition = new Vector2(-moveDistance, 0);
             IsCountingDown = true;
             countDownText.SetText("3");
 

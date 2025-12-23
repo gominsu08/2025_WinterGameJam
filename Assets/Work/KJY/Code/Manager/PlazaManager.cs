@@ -38,11 +38,11 @@ namespace Work.KJY.Code.Manager
         public int GetNeedMoney() => levelDict.ContainsKey(_curLevel) ? levelDict[_curLevel] : -1;
         public bool IsMaxLevel => _curLevel >= levelDict.Count;
 
-        public void LevelUp()
+        public int LevelUp()
         {
             if (IsMaxLevel)
             {
-                return;
+                return -1;
             }
             
             _curLevel++;
@@ -72,6 +72,7 @@ namespace Work.KJY.Code.Manager
             }
             
             Bus<PlazaLevelUpgradedEvent>.Raise(new PlazaLevelUpgradedEvent(_curLevel));
+            return _curLevel;
         }
     }
 }

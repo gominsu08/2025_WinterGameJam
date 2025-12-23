@@ -506,7 +506,7 @@ public class SnowmanDecoration : MonoBehaviour
             decoPrice += deco.itemValuePrice;
         }
 
-        totalPrice = snowPrice + decoPrice + 300;
+        totalPrice = snowPrice + decoPrice;
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {

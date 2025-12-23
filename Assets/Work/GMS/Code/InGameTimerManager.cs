@@ -35,11 +35,6 @@ namespace Work.GMS.Code
         private void Awake()
         {
             CountDown();
-
-            if(Inventory.Instance.IsUsedBuffItem("분무기"))
-            {
-                playTime = 40;
-            }
         }
 
         public void CountDown()

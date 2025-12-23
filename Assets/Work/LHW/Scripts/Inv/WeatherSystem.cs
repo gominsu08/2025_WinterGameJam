@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using Work.Utils.EventBus;
@@ -32,10 +32,13 @@ public class WeatherSystem : MonoBehaviour
     public GameObject cloudyEffect;
     public GameObject sunnyEffect;
 
+    public bool isIngame;
+
     void Start()
     {
-        if (!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈")) Co_TestRoutine();
+        if(!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈") && isIngame)StartCoroutine(Co_TestRoutine());
         else ChangeWeather(WeatherType.Snowy);
+>>>>>>> Stashed changes
     }
 
     /// <summary>

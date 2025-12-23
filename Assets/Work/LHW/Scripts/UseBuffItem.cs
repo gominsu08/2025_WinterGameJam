@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using Work.KJY.Code.Core;
+using Work.KJY.Code.Manager;
 
 public class UseBuffItem : MonoBehaviour
 {
-    public GameObject buffItemBaseButton;
-    public Transform buttonSpawnParent;
+    public static UseBuffItem Instance;
+    
+    public GameObject useBuffPannel;
 
     public ItemBase SprayerItem;
     public ItemBase TeruTeruBozuItem;
@@ -19,6 +23,13 @@ public class UseBuffItem : MonoBehaviour
     public bool isUsedSprayer;
     public bool isUsedTeruTeruBozu;
 
+    void Awake()
+    {
+        if(Instance == null) Instance = this;
+        else Destroy(gameObject);
+        
+    }
+
 
     void FixedUpdate()
     {
@@ -26,12 +37,24 @@ public class UseBuffItem : MonoBehaviour
         TeruTeruBozuItemCountText.text = Inventory.Instance.GetItemCount(TeruTeruBozuItem).ToString();
     }
 
+    public void OpenUseBuffPannel()
+    {
+        useBuffPannel.SetActive(true);
+
+        if(isUsedSprayer) UseSprayer();
+        if(isUsedTeruTeruBozu) UseTeruTeruBozu();
+    }
+
+    public void CloseUseBuffPannel()
+    {
+        IrisFadeManager.Instance.FadeIn(1f, "PlayerTestScene");
+    }
+
 
     public void UseSprayer()
     {
-        if(isUsedSprayer == false)
+        if(isUsedSprayer == false && Inventory.Instance.UseBuffItem(SprayerItem))
         {
-            Inventory.Instance.UseBuffItem(SprayerItem);
             SprayerCheckIcon.SetActive(true);
             isUsedSprayer = true;
         }
@@ -46,9 +69,8 @@ public class UseBuffItem : MonoBehaviour
 
     public void UseTeruTeruBozu()
     {
-        if(isUsedTeruTeruBozu == false)
+        if(isUsedTeruTeruBozu == false && Inventory.Instance.UseBuffItem(TeruTeruBozuItem))
         {
-            Inventory.Instance.UseBuffItem(TeruTeruBozuItem);
             TeruTeruBozuCheckIcon.SetActive(true);
             isUsedTeruTeruBozu = true;
         }
