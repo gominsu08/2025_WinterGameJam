@@ -7,12 +7,25 @@ namespace Work.Characters.FSM.Code
     {
         public string stateName;
         public string statePath;
-        public int animationHash { get; private set; }
+        
+        [SerializeField, HideInInspector] private int _animationHash;
+        
+        public int animationHash
+        {
+            get
+            {
+                if (_animationHash == 0 && !string.IsNullOrEmpty(stateName))
+                {
+                    _animationHash = Animator.StringToHash(stateName);
+                }
+                return _animationHash;
+            }
+        }
 
         private void OnValidate()
         {
             if (!string.IsNullOrEmpty(stateName))
-                animationHash = Animator.StringToHash(stateName);
+                _animationHash = Animator.StringToHash(stateName);
         }
     }
 }
