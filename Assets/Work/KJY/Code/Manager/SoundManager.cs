@@ -31,6 +31,7 @@ namespace Work.KJY.Code.Manager
                 var bgmSource = Instantiate(bgmSourcePrefab, transform);
                 _bgmSources.Add(bgmSource);
             }
+            PlayBGM("BGM");
         }
 
         public void PlayBGM(string key)

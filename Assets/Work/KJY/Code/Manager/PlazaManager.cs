@@ -26,7 +26,6 @@ namespace Work.KJY.Code.Manager
             
             _curLevel++;
             Bus<PlazaLevelUpgradedEvent>.Raise(new PlazaLevelUpgradedEvent(_curLevel));
-            Debug.Log("LevelUp");
         }
     }
 }

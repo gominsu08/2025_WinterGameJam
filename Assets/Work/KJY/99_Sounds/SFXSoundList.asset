@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SFXSoundList
   m_EditorClassIdentifier: Assembly-CSharp::_01_Work.KJY.Code.Sound.SoundListSO
   soundType: 1
-  soundList: []
+  soundList:
+  - {fileID: 11400000, guid: 1c5172f63f9d78f4b859c3a3a91aea52, type: 2}
