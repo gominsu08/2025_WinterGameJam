@@ -38,15 +38,19 @@ public class WeatherSystem : MonoBehaviour
     {
         if(!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈") && isIngame)StartCoroutine(Co_TestRoutine());
         else ChangeWeather(WeatherType.Snowy);
->>>>>>> Stashed changes
     }
 
     /// <summary>
     /// 테스트용 코루틴 | 추후 삭제 예정
     /// </summary>
-    void Co_TestRoutine()
+    IEnumerator Co_TestRoutine()
     {
-        ChangeWeather((WeatherType)Random.Range(0, 4));
+        while (true)
+        {
+            ChangeWeather((WeatherType)Random.Range(0, 4));
+            yield return new WaitForSeconds(weatherChangeInterval);
+        }
+        
     }
     /// <summary>
     /// 날씨 변경 메서드
