@@ -7,6 +7,7 @@ public class SnowmanScreenshot : MonoBehaviour
 {
     public GameObject decoCanvas;
     public GameObject designCanvas;
+    public GameObject pivot;
 
     public Animator anim;
 
@@ -27,6 +28,7 @@ public class SnowmanScreenshot : MonoBehaviour
     {
         decoCanvas.SetActive(false);
         designCanvas.SetActive(true);
+        pivot.SetActive(false);
 
         Camera.main.transform.localPosition = new Vector3(0, -(SnowmanDecoration.Instance.currentSnowmanData.snowmanUpSize + SnowmanDecoration.Instance.currentSnowmanData.snowmanDownSize) / 5f, -10 - (SnowmanDecoration.Instance.currentSnowmanData.snowmanUpSize + SnowmanDecoration.Instance.currentSnowmanData.snowmanDownSize) * 1.2f);
 
@@ -51,6 +53,7 @@ public class SnowmanScreenshot : MonoBehaviour
 
         decoCanvas.SetActive(true);
         designCanvas.SetActive(false);
+        pivot.SetActive(true);
 
         anim.SetTrigger("ScreenshotAnim");
     }

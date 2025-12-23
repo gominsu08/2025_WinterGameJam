@@ -78,8 +78,7 @@ public class SnowmanDecoration : MonoBehaviour
 
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
-        //InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
-        InitSnowmanData(35.7f, 35.7f);
+        InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
         InitDecoUI();
     }
 
