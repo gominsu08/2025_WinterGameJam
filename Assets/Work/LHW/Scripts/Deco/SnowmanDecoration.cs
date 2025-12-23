@@ -198,6 +198,26 @@ public class SnowmanDecoration : MonoBehaviour
 
         // === 2) 기존 토글 방식(목도리/모자/단추 등)은 그대로 유지 ===
         
+        bool isCanPlace = false;
+
+        if(decoItem != null && decoItem.activeSelf)
+        {
+            Inventory.Instance.AddItem(item);
+            currentSnowmanData.RemoveDecorationItem(item);
+        }
+        else
+        {
+            currentSnowmanData.AddDecorationItem(item);
+            isCanPlace = Inventory.Instance.RemoveItem(item);
+        }
+
+
+        if(isCanPlace == false)
+        {
+            Debug.LogWarning("아이템이 인벤토리에 없습니다: " + item.itemName);
+            return;
+        }
+        
         switch (item.decorationType)
         {
             case DecorationType.Muffler:
@@ -244,16 +264,7 @@ public class SnowmanDecoration : MonoBehaviour
                 break;
         }
 
-        if(decoItem != null && decoItem.activeSelf)
-        {
-            Inventory.Instance.RemoveItem(item);
-            currentSnowmanData.AddDecorationItem(item);
-        }
-        else
-        {
-            Inventory.Instance.AddItem(item);
-            currentSnowmanData.RemoveDecorationItem(item);
-        }
+        
 
         InitDecoUI();
     }
