@@ -13,10 +13,15 @@ namespace Work.KJY.Code.UI
 
         private int _curMoney;
 
+
+        private void Awake()
+        {
+            Bus<ChangeMoneyEvent>.Events += OnChangedMoney;
+        }
         private void Start()
         {
             IrisFadeManager.Instance.FadeOut();
-            Bus<ChangeMoneyEvent>.Events += OnChangedMoney;
+            
         }
 
         private void OnDestroy()

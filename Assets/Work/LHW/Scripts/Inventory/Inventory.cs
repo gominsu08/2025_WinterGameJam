@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Work.KJY.Code.Event;
 using Work.Utils.EventBus;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Inventory : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else Destroy(gameObject);
 
@@ -29,6 +31,19 @@ public class Inventory : MonoBehaviour
         {
             AddItem(item);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // 체인을 걸어서 이 함수는 매 씬마다 호출된다.
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded | Inventory Init");
+        Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
     private void Start()
@@ -80,4 +95,6 @@ public class Inventory : MonoBehaviour
     {
         return itemCounts.ContainsKey(item) ? itemCounts[item] : 0;
     }
+
+    
 }
