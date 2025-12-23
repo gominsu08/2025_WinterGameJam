@@ -72,6 +72,11 @@ namespace Work.Characters.FSM.Code
             }
         }
 
+        internal void OnDestroy()
+        {
+            CurrentState?.Exit();
+        }
+
         #endregion
     }
 }
