@@ -8,8 +8,9 @@ namespace Work.KJY.Code.Interacts
     public class ShopInteract : MonoBehaviour
     {
         [SerializeField] private LayerMask playerMask;
+        [SerializeField] private GameObject shopUI;
 
-        private bool _isInPlayer;
+        [SerializeField]private bool _isInPlayer;
 
         private void Start()
         {
@@ -21,12 +22,14 @@ namespace Work.KJY.Code.Interacts
             if (_isInPlayer)
             {
                 // 여기에 Shop UI 띄우면 될듯
+                shopUI.SetActive(true);
+                Debug.Log("상점 인터랙트 실행");
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((playerMask & (1 << other.gameObject.layer)) != 0)
+            if ((playerMask & (1 << other.gameObject.layer)) != 0) 
                 _isInPlayer = true;
         }
 
