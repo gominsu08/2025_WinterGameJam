@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7259395267332198548
+--- !u!1001 &4754576938132699163
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,51 +8,51 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.28626597
+      value: -32.9086
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0522
+      value: 1.0351114
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -3.9960604
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0000000754979
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -1.7112914e-15
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
-      propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.000000021855694
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: -7511558181221131132, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8f0b8bec4816f5f4390906b82ff8737d, type: 2}
-    - target: {fileID: 919132149155446097, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+    - target: {fileID: 919132149155446097, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
       propertyPath: m_Name
       value: muffler
       objectReference: {fileID: 0}
@@ -60,4 +60,4 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 43b2e39a879f30646b10150da9deeab3, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 9915c1205fcd7d947b3d939172461ead, type: 3}
