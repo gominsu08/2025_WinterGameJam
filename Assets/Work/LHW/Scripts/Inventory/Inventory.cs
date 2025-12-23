@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public List<ItemBase> GetAllItems(DecorationType type)
+    public List<ItemBase> GetAllItems()
     {
         List<ItemBase> keys = new List<ItemBase>();
         foreach(var kvp in itemCounts)
