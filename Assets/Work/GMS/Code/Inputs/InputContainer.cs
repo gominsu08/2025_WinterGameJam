@@ -36,7 +36,7 @@ namespace Work.Inputs
         {
             Vector2 vector = context.ReadValue<Vector2>();
 
-            Bus<CharacterMoveEvent>.Raise(new CharacterMoveEvent(new Vector3( vector.x,0, vector.y)));
+            Bus<CharacterMoveEvent>.Raise(new CharacterMoveEvent(new Vector3(vector.x, 0, vector.y)));
         }
 
 

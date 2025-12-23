@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Work.Utils.EventBus;
 
 public enum WeatherType
 {
@@ -9,6 +10,16 @@ public enum WeatherType
     
     Snowy,
     Cloudy,
+}
+
+
+public struct WeatherChangeEvent : IEvent
+{
+    public WeatherType NewWeather;
+    public WeatherChangeEvent(WeatherType newWeather)
+    {
+        NewWeather = newWeather;
+    }
 }
 
 public class WeatherSystem : MonoBehaviour
@@ -50,6 +61,7 @@ public class WeatherSystem : MonoBehaviour
         sunnyEffect.SetActive(currentWeather == WeatherType.Sunny);
 
         //여기다 추가 로직 작성하심 될거같아여
+        Bus<WeatherChangeEvent>.Raise(new WeatherChangeEvent(newWeather));
 
         Debug.Log("날씨가 " + newWeather.ToString() + "(으)로 변경되었습니다.");
     }
