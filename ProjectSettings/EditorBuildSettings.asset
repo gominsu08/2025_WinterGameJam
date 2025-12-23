@@ -12,11 +12,17 @@ EditorBuildSettings:
     path: Assets/Work/KJY/Scene/TitleScene.unity
     guid: 826a76dfac98f384c8fff3ff99424719
   - enabled: 1
-    path: Assets/Work/KJY/Scene/BoostItemTest.unity
-    guid: 10aca63c12b47fb4ea433ecafc465525
+    path: Assets/Work/LHW/Scenes/Tutorial.unity
+    guid: 3e81fd87bb7074b86b0d9afc4851cfc3
+  - enabled: 1
+    path: Assets/Work/LHW/Scenes/Merge.unity
+    guid: 85a57a764559b4e209fb824d5b034332
   - enabled: 1
     path: Assets/Work/GMS/Scene/PlayerTestScene.unity
     guid: e9ab442d59cc9f34eacf88e246ed8882
+  - enabled: 1
+    path: Assets/Work/LHW/Scenes/SnowmanDeco.unity
+    guid: 2247d79faed384f06be59e873f9630ca
   - enabled: 1
     path: Assets/Work/KJY/Scene/InGameScene.unity
     guid: 3f9a28ae5d5b09c4a8ea32a687e775f0
@@ -24,14 +30,8 @@ EditorBuildSettings:
     path: Assets/Work/KJY/Scene/InGameUI.unity
     guid: 49d331fe141641742b1ce460d04bc929
   - enabled: 1
-    path: Assets/Work/LHW/Scenes/Tutorial.unity
-    guid: 3e81fd87bb7074b86b0d9afc4851cfc3
-  - enabled: 1
-    path: Assets/Work/LHW/Scenes/SnowmanDeco.unity
-    guid: 2247d79faed384f06be59e873f9630ca
-  - enabled: 1
-    path: Assets/Work/LHW/Scenes/Merge.unity
-    guid: 85a57a764559b4e209fb824d5b034332
+    path: Assets/Work/KJY/Scene/BoostItemTest.unity
+    guid: 10aca63c12b47fb4ea433ecafc465525
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
