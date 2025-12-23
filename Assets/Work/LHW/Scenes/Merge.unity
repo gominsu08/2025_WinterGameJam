@@ -9952,7 +9952,6 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 2048
-  _isInPlayer: 0
 --- !u!1 &979915760
 GameObject:
   m_ObjectHideFlags: 0
@@ -18823,7 +18822,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   shopUI: {fileID: 958321167}
-  _isInPlayer: 0
 --- !u!136 &1594085664
 CapsuleCollider:
   m_ObjectHideFlags: 0
