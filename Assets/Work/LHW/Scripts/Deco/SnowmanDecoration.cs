@@ -63,8 +63,6 @@ public class SnowmanDecoration : MonoBehaviour
     // 필요없으면 비워둬도 됨.
     private readonly HashSet<DecorationType> singletonPlaceTypes = new()
     {
-        DecorationType.Muffler,
-        DecorationType.Hat,
     };
 
     public void Start()
@@ -169,7 +167,7 @@ public class SnowmanDecoration : MonoBehaviour
     public void DecoSnowman(DecorationItem item, DecorationButtonInitiator buttonInitiator)
     {
         // === 1) 자유 배치 타입이면 배치 모드로 전환 ===
-        if (IsFreePlaceType(item.decorationType))
+        if (IsFreePlaceType(item))
         {
             // [수정] 이미 선택된 아이템을 또 눌렀다면? -> 배치 모드 종료 (토글 오프)
             if (pendingPlaceItem == item)
@@ -237,13 +235,9 @@ public class SnowmanDecoration : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private bool IsFreePlaceType(DecorationType type)
+    private bool IsFreePlaceType(DecorationItem item)
     {
-        // "눈코입이나 팔"을 자유 배치로 하려면 여기 true
-        return type == DecorationType.Eye
-            || type == DecorationType.Nose
-            || type == DecorationType.Mouth
-            || type == DecorationType.Arm;
+        return item.isPlaceable;
     }
 
 /// <summary>
@@ -292,7 +286,7 @@ public class SnowmanDecoration : MonoBehaviour
             // 위치/회전 업데이트
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
-            Quaternion rot = Quaternion.LookRotation(-hit.normal, Vector3.up);
+            Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down);
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
 
