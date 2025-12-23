@@ -115,7 +115,9 @@ public class SnowmanDecoration : MonoBehaviour
     private void InitDecoUI()
     {
         // currentDecoType 기준으로 필터된 아이템
-        List<ItemBase> items = Inventory.Instance.GetAllItems(currentDecoType);
+        List<ItemBase> items = Inventory.Instance.GetAllItems()
+            .Where(item => item is DecorationItem decoItem && decoItem.decorationType == currentDecoType)
+            .ToList();
 
         // 기존 버튼 삭제
         for (int i = filterButtonParent.childCount - 1; i >= 0; i--)
@@ -135,7 +137,7 @@ public class SnowmanDecoration : MonoBehaviour
             if (txt != null) txt.text = localType.ToString();
 
             // 클릭
-            var btn = filterButtonObj.GetComponent<UnityEngine.UI.Button>();
+            var btn = filterButtonObj.GetComponent<Button>();
             if (btn != null)
             {
                 btn.onClick.RemoveAllListeners();
@@ -286,7 +288,7 @@ public class SnowmanDecoration : MonoBehaviour
             // 위치/회전 업데이트
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
-            Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down);
+            Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down) * Quaternion.Euler(pendingPlaceItem.rotationOffset);
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
 

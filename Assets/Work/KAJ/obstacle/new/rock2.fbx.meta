@@ -33,7 +33,11 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
+<<<<<<< Updated upstream:Assets/Work/KAJ/obstacle/new/rock2.fbx.meta
     globalScale: 1
+=======
+    globalScale: 25
+>>>>>>> Stashed changes:Assets/Work/KAJ/deco/no/santa hat.fbx.meta
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +92,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+<<<<<<< Updated upstream:Assets/Work/KAJ/obstacle/new/rock2.fbx.meta
     globalScale: 1
+=======
+    globalScale: 0.25
+>>>>>>> Stashed changes:Assets/Work/KAJ/deco/no/santa hat.fbx.meta
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
