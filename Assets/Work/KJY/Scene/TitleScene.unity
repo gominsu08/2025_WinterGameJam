@@ -8728,8 +8728,6 @@ MonoBehaviour:
       Value: 300
     - Key: 3
       Value: 600
-    - Key: 4
-      Value: 1200
 --- !u!1001 &2055260551
 PrefabInstance:
   m_ObjectHideFlags: 0

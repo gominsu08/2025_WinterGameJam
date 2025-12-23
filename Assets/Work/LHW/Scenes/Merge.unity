@@ -24526,10 +24526,6 @@ MonoBehaviour:
       Value: 10000
     - Key: 3
       Value: 30000
-    - Key: 4
-      Value: 70000
-    - Key: 5
-      Value: 130000
 --- !u!1 &1903274677
 GameObject:
   m_ObjectHideFlags: 0
