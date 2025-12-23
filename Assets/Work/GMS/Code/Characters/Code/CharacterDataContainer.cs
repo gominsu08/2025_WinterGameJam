@@ -28,6 +28,12 @@ namespace Work.Characters
             Bus<GameStartEvent>.Events += HandleStartGame;
         }
 
+        private void OnDestroy()
+        {
+            Bus<GameStartEvent>.Events -= HandleStartGame;
+            
+        }
+
         private void Start()
         {
             _stateCompo = CurrentCharacter.GetCompo<StateCompo>();

@@ -19,6 +19,11 @@ namespace Work.KJY.Code.UI
             Bus<ChangeMoneyEvent>.Events += OnChangedMoney;
         }
 
+        private void OnDestroy()
+        {
+            Bus<ChangeMoneyEvent>.Events -= OnChangedMoney;
+        }
+
         private void OnChangedMoney(ChangeMoneyEvent evt)
         {
             _curMoney = evt.CurMoney;

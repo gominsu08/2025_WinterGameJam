@@ -18,6 +18,12 @@ namespace Assets.Work.GMS.Code.UIs.WeatherIconUI
             Bus<WeatherChangeEvent>.Events += HandleWeatherChange;
         }
 
+        private void OnDestroy()
+        {
+            
+            Bus<WeatherChangeEvent>.Events -= HandleWeatherChange;
+        }
+
         private void HandleWeatherChange(WeatherChangeEvent evt)
         {
             switch (evt.NewWeather)
