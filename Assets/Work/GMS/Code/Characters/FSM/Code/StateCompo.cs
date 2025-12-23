@@ -25,6 +25,11 @@ namespace Work.Characters.FSM.Code
             _stateMachine.Initialized(_character.CharacterData.stateSOs, entity);
         }
 
+        private void OnDestroy()
+        {
+            _stateMachine.OnDestroy();
+        }
+
         #endregion
 
         #region Method

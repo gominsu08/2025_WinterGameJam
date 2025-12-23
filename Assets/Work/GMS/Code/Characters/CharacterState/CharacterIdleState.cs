@@ -20,6 +20,7 @@ namespace Work.GMS.Code.Characters.CharacterState
             _movementCompo = _character.GetCompo<CharacterMovementCompo>();
         }
 
+
         public override void Enter()
         {
             base.Enter();
