@@ -12,6 +12,7 @@ public class DecorationItem : ItemBase
     // 배치형 옵션
     public bool isPlaceable;
     public GameObject placeablePrefab;
+    public Vector3 rotationOffset;
     public PlacementTarget placementTarget = PlacementTarget.Up;
     public float surfaceOffset = 0.02f;
 }

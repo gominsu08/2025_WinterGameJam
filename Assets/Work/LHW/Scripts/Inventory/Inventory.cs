@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,6 +31,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
+    }
+
     public void AddMoney(int amount)
     {
         money += amount;
@@ -59,7 +65,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public List<ItemBase> GetAllItems(DecorationType type)
+    public List<ItemBase> GetAllItems()
     {
         List<ItemBase> keys = new List<ItemBase>();
         foreach(var kvp in itemCounts)

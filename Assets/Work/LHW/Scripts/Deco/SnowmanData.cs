@@ -19,4 +19,9 @@ public class SnowmanData
     {
         decorationItems.Add(item);
     }
+
+    public void RemoveDecorationItem(DecorationItem item)
+    {
+        decorationItems.Remove(item);
+    }
 }

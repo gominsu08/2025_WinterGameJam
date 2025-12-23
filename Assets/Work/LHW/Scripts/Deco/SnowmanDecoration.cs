@@ -10,7 +10,9 @@ public class SnowmanDecoration : MonoBehaviour
     public static SnowmanDecoration Instance;
     private DecorationType currentDecoType;
 
-    private SnowmanData currentSnowmanData;
+    public SnowmanData currentSnowmanData;
+
+    private GameObject decoItem;
 
     [Header("Snow Man")]
     [SerializeField, Range(0, 1f)] private float snowmanMergeRatio;
@@ -63,8 +65,6 @@ public class SnowmanDecoration : MonoBehaviour
     // 필요없으면 비워둬도 됨.
     private readonly HashSet<DecorationType> singletonPlaceTypes = new()
     {
-        DecorationType.Muffler,
-        DecorationType.Hat,
     };
 
     public void Start()
@@ -104,12 +104,14 @@ public class SnowmanDecoration : MonoBehaviour
         snowmanDownPart.localPosition = new Vector3(0, -downSize / 2, 0);
 
         //Camera.main.fieldOfView = 60 + (upSize + downSize) * 2;
-        Camera.main.transform.localPosition = new Vector3(0, -(upSize + downSize) / 5f, -10 - (upSize + downSize) * 1.2f);
+        Camera.main.transform.localPosition = new Vector3(0, 0, -10 - (upSize + downSize) * 1.2f);
 
         for(int i = 0; i < placeablesRoot.childCount; i++)
         {
             if(placeablesRoot.GetChild(i).gameObject.tag == "Decoration") Destroy(placeablesRoot.GetChild(i).gameObject);
         }
+
+        decoItem = null;
 
         snowmanRoot.localRotation = Quaternion.identity;
     }
@@ -117,7 +119,9 @@ public class SnowmanDecoration : MonoBehaviour
     private void InitDecoUI()
     {
         // currentDecoType 기준으로 필터된 아이템
-        List<ItemBase> items = Inventory.Instance.GetAllItems(currentDecoType);
+        List<ItemBase> items = Inventory.Instance.GetAllItems()
+            .Where(item => item is DecorationItem decoItem && decoItem.decorationType == currentDecoType)
+            .ToList();
 
         // 기존 버튼 삭제
         for (int i = filterButtonParent.childCount - 1; i >= 0; i--)
@@ -137,7 +141,7 @@ public class SnowmanDecoration : MonoBehaviour
             if (txt != null) txt.text = localType.ToString();
 
             // 클릭
-            var btn = filterButtonObj.GetComponent<UnityEngine.UI.Button>();
+            var btn = filterButtonObj.GetComponent<Button>();
             if (btn != null)
             {
                 btn.onClick.RemoveAllListeners();
@@ -169,7 +173,7 @@ public class SnowmanDecoration : MonoBehaviour
     public void DecoSnowman(DecorationItem item, DecorationButtonInitiator buttonInitiator)
     {
         // === 1) 자유 배치 타입이면 배치 모드로 전환 ===
-        if (IsFreePlaceType(item.decorationType))
+        if (IsFreePlaceType(item))
         {
             // [수정] 이미 선택된 아이템을 또 눌렀다면? -> 배치 모드 종료 (토글 오프)
             if (pendingPlaceItem == item)
@@ -184,43 +188,65 @@ public class SnowmanDecoration : MonoBehaviour
         }
 
         // === 2) 기존 토글 방식(목도리/모자/단추 등)은 그대로 유지 ===
+        
         switch (item.decorationType)
         {
             case DecorationType.Muffler:
                 foreach (GameObject muffler in decoMufflers) muffler.SetActive(false);
                 decoMufflers[item.decorationObjectIndex].SetActive(!decoMufflers[item.decorationObjectIndex].activeSelf);
+                if(decoMufflers[item.decorationObjectIndex].activeSelf)
+                decoItem = decoMufflers[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Arm:
                 foreach (GameObject arm in decoArms) arm.SetActive(false);
                 decoArms[item.decorationObjectIndex].SetActive(!decoArms[item.decorationObjectIndex].activeSelf);
+                decoItem = decoArms[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Hat:
                 foreach (GameObject hat in decoHats) hat.SetActive(false);
                 decoHats[item.decorationObjectIndex].SetActive(!decoHats[item.decorationObjectIndex].activeSelf);
+                decoItem = decoHats[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Button:
                 foreach (GameObject button in decoButtons) button.SetActive(false);
                 decoButtons[item.decorationObjectIndex].SetActive(!decoButtons[item.decorationObjectIndex].activeSelf);
+                decoItem = decoButtons[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Eye:
                 foreach (GameObject eye in decoEyes) eye.SetActive(false);
                 decoEyes[item.decorationObjectIndex].SetActive(!decoEyes[item.decorationObjectIndex].activeSelf);
+                decoItem = decoEyes[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Mouth:
                 foreach (GameObject mouth in decoMouths) mouth.SetActive(false);
                 decoMouths[item.decorationObjectIndex].SetActive(!decoMouths[item.decorationObjectIndex].activeSelf);
+                decoItem = decoMouths[item.decorationObjectIndex];
                 break;
 
             case DecorationType.Nose:
                 foreach (GameObject nose in decoNoses) nose.SetActive(false);
                 decoNoses[item.decorationObjectIndex].SetActive(!decoNoses[item.decorationObjectIndex].activeSelf);
+                decoItem = decoNoses[item.decorationObjectIndex];
                 break;
         }
+
+        if(decoItem != null && decoItem.activeSelf)
+        {
+            Inventory.Instance.RemoveItem(item);
+            currentSnowmanData.AddDecorationItem(item);
+        }
+        else
+        {
+            Inventory.Instance.AddItem(item);
+            currentSnowmanData.RemoveDecorationItem(item);
+        }
+
+        InitDecoUI();
     }
 
     private void CancelPlacement()
@@ -237,13 +263,9 @@ public class SnowmanDecoration : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private bool IsFreePlaceType(DecorationType type)
+    private bool IsFreePlaceType(DecorationItem item)
     {
-        // "눈코입이나 팔"을 자유 배치로 하려면 여기 true
-        return type == DecorationType.Eye
-            || type == DecorationType.Nose
-            || type == DecorationType.Mouth
-            || type == DecorationType.Arm;
+        return item.isPlaceable;
     }
 
 /// <summary>
@@ -292,7 +314,7 @@ public class SnowmanDecoration : MonoBehaviour
             // 위치/회전 업데이트
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
-            Quaternion rot = Quaternion.LookRotation(-hit.normal, Vector3.up);
+            Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down) * Quaternion.Euler(pendingPlaceItem.rotationOffset);
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
 

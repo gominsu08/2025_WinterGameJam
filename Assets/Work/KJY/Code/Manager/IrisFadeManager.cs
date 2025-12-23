@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 using Work.KJY.Code.Core;
 
 namespace Work.KJY.Code.Manager
@@ -16,15 +17,22 @@ namespace Work.KJY.Code.Manager
         private Tween tween;
         private Material runtimeMat;
         private int radiusId;
+        private Coroutine bindRoutine;
+        private bool initialized;
 
-        private void Awake()
+        private void Start()
         {
+            if (initialized)
+                return;
+
+            initialized = true;
+
             radiusId = Shader.PropertyToID(radiusProperty);
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            TryBindUI();
+            BindUIImmediate();
         }
 
         private void OnDestroy()
@@ -36,10 +44,20 @@ namespace Work.KJY.Code.Manager
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            TryBindUI();
+            if (bindRoutine != null)
+                StopCoroutine(bindRoutine);
+
+            bindRoutine = StartCoroutine(BindAndOpenNextFrame());
+        }
+
+        private IEnumerator BindAndOpenNextFrame()
+        {
+            yield return null;
+
+            BindUIImmediate();
 
             if (!EnsureValidTarget())
-                return;
+                yield break;
 
             irisImage.gameObject.SetActive(true);
             runtimeMat.SetFloat(radiusId, 0f);
@@ -61,7 +79,11 @@ namespace Work.KJY.Code.Manager
         private void Play(float targetRadius, float duration, string sceneName)
         {
             if (!EnsureValidTarget())
-                return;
+            {
+                BindUIImmediate();
+                if (!EnsureValidTarget())
+                    return;
+            }
 
             KillTween();
             irisImage.gameObject.SetActive(true);
@@ -112,14 +134,10 @@ namespace Work.KJY.Code.Manager
             return true;
         }
 
-        private void TryBindUI()
+        private void BindUIImmediate()
         {
             if (irisImage == null || !irisImage)
-            {
-                var found = GameObject.Find("IrisFade");
-                if (found != null)
-                    irisImage = found.GetComponent<RawImage>();
-            }
+                irisImage = FindIrisFadeRawImage();
 
             DestroyRuntimeMaterial();
 
@@ -134,6 +152,19 @@ namespace Work.KJY.Code.Manager
 
             irisImage.gameObject.SetActive(true);
             runtimeMat.SetFloat(radiusId, 1f);
+        }
+
+        private RawImage FindIrisFadeRawImage()
+        {
+            var all = Object.FindObjectsByType<RawImage>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+            for (int i = 0; i < all.Length; i++)
+            {
+                var img = all[i];
+                if (img != null && img.gameObject.name == "IrisFade")
+                    return img;
+            }
+            return null;
         }
 
         private void KillTween()
