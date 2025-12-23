@@ -52,6 +52,13 @@ public class Inventory : MonoBehaviour
         Bus<ChangeMoneyEvent>.Raise(new ChangeMoneyEvent(money));
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            AddMoney(10000);
+        }
+    }
+
     public void AddMoney(int amount)
     {
         money += amount;

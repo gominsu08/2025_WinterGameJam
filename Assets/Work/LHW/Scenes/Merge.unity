@@ -38772,9 +38772,9 @@ MonoBehaviour:
   tutorialDesc: "\uC0AC\uC6A9\uD560 \uBC84\uD504 \uC544\uC774\uD15C\uC744 \uC120\uD0DD\uD55C
     \uD6C4, \uC2DC\uC791\uD574\uC8FC\uC138\uC694!\n\uC7A5\uC560\uBB3C\uC740 \uD53C\uD558\uACE0,
     \uC544\uC774\uD15C\uC740 \uBA39\uC5B4\uC11C \uB208\uC744 \uD06C\uAC8C \uAD74\uB9AC\uC138\uC694!"
-  tutorialText: {fileID: 0}
-  tutorialVideo: {fileID: 0}
-  videoPlayer: {fileID: 0}
+  tutorialText: {fileID: 1368513974}
+  tutorialVideo: {fileID: 1085426518}
+  videoPlayer: {fileID: 676374234}
   videoClip: {fileID: 32900000, guid: ac884212f62e046d89527a7db0032033, type: 3}
   disableMaterial: {fileID: 2100000, guid: 253703c4cd72548d694c6ed9377df15a, type: 2}
   enableMaterial: {fileID: 2100000, guid: beb80aa5cab69477ca93b294d5908da8, type: 2}
