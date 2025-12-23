@@ -78,7 +78,9 @@ public class SnowmanDecoration : MonoBehaviour
 
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
-        InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        if(DataContainer.Instance != null)InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        else InitSnowmanData(10f, 10f);
+        
         InitDecoUI();
     }
 
@@ -296,7 +298,7 @@ public class SnowmanDecoration : MonoBehaviour
     {
         if (pendingPlaceItem == null) return;
 
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject() && previewInstance != null)
         {
             previewInstance.SetActive(false);
             return;
@@ -322,18 +324,24 @@ public class SnowmanDecoration : MonoBehaviour
                 previewInstance.tag = "Decoration";
                 SetPreviewVisual(previewInstance, true);
             }
+            
 
             previewInstance.transform.parent = isOnUpParts ? snowmanUpPart : snowmanDownPart;
 
             // 위치/회전 업데이트
+            previewInstance?.SetActive(true);
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
             Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down) * Quaternion.Euler(pendingPlaceItem.rotationOffset);
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
+        else
+        {
+            previewInstance?.SetActive(false);
+        }
 
         // [수정] 좌클릭: 설치 확정 후 모드를 유지함
-        if (Input.GetMouseButtonDown(0) && previewInstance != null && Inventory.Instance.RemoveItem(pendingPlaceItem))
+        if (Input.GetMouseButtonDown(0) && previewInstance.activeSelf && previewInstance != null && Inventory.Instance.RemoveItem(pendingPlaceItem))
         {
             // 싱글톤(코, 입 등) 처리
             if (singletonPlaceTypes.Contains(pendingPlaceItem.decorationType))
