@@ -26,6 +26,8 @@ public class SnowmanScreenshot : MonoBehaviour
         decoCanvas.SetActive(false);
         designCanvas.SetActive(true);
 
+        Camera.main.transform.localPosition = new Vector3(0, -(SnowmanDecoration.Instance.currentSnowmanData.snowmanUpSize + SnowmanDecoration.Instance.currentSnowmanData.snowmanDownSize) / 5f, -10 - (SnowmanDecoration.Instance.currentSnowmanData.snowmanUpSize + SnowmanDecoration.Instance.currentSnowmanData.snowmanDownSize) * 1.2f);
+
         // 캔버스 상태가 실제로 렌더되도록 한 프레임 대기
         yield return new WaitForEndOfFrame();
 
@@ -42,6 +44,9 @@ public class SnowmanScreenshot : MonoBehaviour
 
         // 다시 UI 복구
         yield return new WaitForEndOfFrame();
+
+        Camera.main.transform.localPosition = new Vector3(0, 0, -10 - (SnowmanDecoration.Instance.currentSnowmanData.snowmanUpSize + SnowmanDecoration.Instance.currentSnowmanData.snowmanDownSize) * 1.2f);
+
         decoCanvas.SetActive(true);
         designCanvas.SetActive(false);
     }

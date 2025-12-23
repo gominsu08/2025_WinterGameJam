@@ -22,20 +22,7 @@ public class DecorationButtonInitiator : MonoBehaviour
         installButton.onClick.RemoveAllListeners();
         installButton.onClick.AddListener(() =>
         {
-            if(!data.isPlaceable)
-            {
-                bool success = Inventory.Instance.RemoveItem(data);
-
-                if (success)
-                {
-                    SnowmanDecoration.Instance.DecoSnowman(data, this);
-                }
-            }
-            else
-            {
-                SnowmanDecoration.Instance.DecoSnowman(data, this);
-            }
-            
+            SnowmanDecoration.Instance.DecoSnowman(data, this);
         });
     }
     
