@@ -16,7 +16,7 @@ namespace Work.KJY.Code.Manager
         private Tween tween;
         private Material runtimeMat;
         private int radiusId;
-        private bool isInitialized;
+
         private void Awake()
         {
             radiusId = Shader.PropertyToID(radiusProperty);
@@ -37,6 +37,12 @@ namespace Work.KJY.Code.Manager
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             TryBindUI();
+
+            if (!EnsureValidTarget())
+                return;
+
+            irisImage.gameObject.SetActive(true);
+            runtimeMat.SetFloat(radiusId, 0f);
 
             if (openOnSceneLoaded)
                 FadeOut(defaultOpenDuration);
@@ -97,10 +103,7 @@ namespace Work.KJY.Code.Manager
 
         private bool EnsureValidTarget()
         {
-            if (irisImage == null)
-                return false;
-
-            if (!irisImage)
+            if (irisImage == null || !irisImage)
                 return false;
 
             if (runtimeMat == null)
@@ -113,43 +116,24 @@ namespace Work.KJY.Code.Manager
         {
             if (irisImage == null || !irisImage)
             {
-                var found = GameObject.Find("Iris Fade Image");
+                var found = GameObject.Find("IrisFade");
                 if (found != null)
                     irisImage = found.GetComponent<RawImage>();
             }
 
+            DestroyRuntimeMaterial();
+
             if (irisImage == null || !irisImage)
-            {
-                isInitialized = false;
-                DestroyRuntimeMaterial();
                 return;
-            }
 
             if (irisImage.material == null)
-            {
-                isInitialized = false;
-                DestroyRuntimeMaterial();
                 return;
-            }
-
-            DestroyRuntimeMaterial();
 
             runtimeMat = new Material(irisImage.material);
             irisImage.material = runtimeMat;
 
             irisImage.gameObject.SetActive(true);
             runtimeMat.SetFloat(radiusId, 1f);
-
-            isInitialized = true;
-        }
-
-        private bool EnsureValidTargetOrRebind()
-        {
-            if (EnsureValidTarget())
-                return true;
-
-            TryBindUI();
-            return EnsureValidTarget();
         }
 
         private void KillTween()

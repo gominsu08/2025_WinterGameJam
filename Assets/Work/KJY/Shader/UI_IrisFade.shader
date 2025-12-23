@@ -76,12 +76,15 @@ Shader "UI/IrisFade"
                 float2 d = uv - c;
 
                 float aspect = _ScreenParams.x / _ScreenParams.y;
-                d.x *= aspect;
 
-                float dist = length(d);
+                float2 dd = d;
+                dd.x *= aspect;
+
+                float maxDist = length(float2(0.5 * aspect, 0.5));
+                float dist = length(dd) / maxDist;
 
                 float n = hash21(uv * _NoiseScale) * 2 - 1;
-                dist += n * _Noise * 0.1;
+                dist += n * _Noise * 0.05;
 
                 float edge = smoothstep(_Radius - _Softness, _Radius + _Softness, dist);
 
