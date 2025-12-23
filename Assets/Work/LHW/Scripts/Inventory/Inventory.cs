@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        Bus<>
+        //Bus<>
     }
 
     public bool SpendMoney(int amount)
