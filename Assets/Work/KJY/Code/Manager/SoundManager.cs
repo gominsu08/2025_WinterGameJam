@@ -33,12 +33,6 @@ namespace Work.KJY.Code.Manager
             }
         }
 
-        private void Update()
-        {
-            if (Keyboard.current.wKey.wasPressedThisFrame)
-                PlayBGM("TEST");
-        }
-
         public void PlayBGM(string key)
         {
             var data = bgmListSO.GetSoundData(key);
