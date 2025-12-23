@@ -92,7 +92,7 @@ Shader "Tycoon/GlowingPad_CircleEdgeOnly_URP"
 
                 o.positionHCS = posInputs.positionCS;
                 o.positionWS = posInputs.positionWS;
-                o.normalWS = nInputs.normalWS;
+                o.normalWS = TransformObjectToWorldNormal(v.normalOS);
 
                 o.positionOS = v.positionOS.xyz;
                 return o;

@@ -522,7 +522,7 @@ public class SnowmanDecoration : MonoBehaviour
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {
-            totalPrice -= 5000;
+            totalPrice -= 500;
             minusPriceText.text += "-500$ | 몸통보다 머리가 커요!\n";
         }
 
