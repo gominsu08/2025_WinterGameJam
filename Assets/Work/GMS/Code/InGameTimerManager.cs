@@ -35,8 +35,6 @@ namespace Work.GMS.Code
         private void Awake()
         {
             CountDown();
-
-            
         }
 
         public void CountDown()
@@ -89,6 +87,7 @@ namespace Work.GMS.Code
 
         public void Fade()
         {
+
             IrisFadeManager.Instance.FadeIn(0.5f);
             DOVirtual.DelayedCall(0.5f, () =>
             {
