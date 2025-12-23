@@ -705,9 +705,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostIconPrefab: {fileID: 8525995136801574436, guid: 8f21f1414640db54c8293b5810207eeb, type: 3}
   characterDataContainer: {fileID: 469345128}
-  speed: {fileID: 21300000, guid: ea62ca2444b0ff149a2ac04fcf7b0e82, type: 3}
-  glow: {fileID: 21300000, guid: ce6ba2c0c07401c4e9d3ca795a32cc26, type: 3}
-  sield: {fileID: 21300000, guid: 3eefd03451da2884794bcd785cfd79a2, type: 3}
+  SPEED: {fileID: 21300000, guid: 6a3bb4df3646df34ea6ece874ed991db, type: 3}
+  SIELD: {fileID: 21300000, guid: 5171456127a0de448853cd41e89200a8, type: 3}
+  GLOWUP: {fileID: 21300000, guid: ee477230cc89d35488a05c80d2017900, type: 3}
 --- !u!114 &87402193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u3147\u3141\u3147\u3141"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f64e90a25e68b454b96ba1666d96d736, type: 2}
   m_sharedMaterial: {fileID: -2906356052148763092, guid: f64e90a25e68b454b96ba1666d96d736, type: 2}
@@ -3679,6 +3679,7 @@ MonoBehaviour:
   snowEffect: {fileID: 943063681}
   cloudyEffect: {fileID: 1047750788}
   sunnyEffect: {fileID: 1097568937}
+  isIngame: 0
 --- !u!4 &609002517
 Transform:
   m_ObjectHideFlags: 0
@@ -8721,7 +8722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 536869423, guid: d828ae6c567d70f4ba5d03ee8e52d614, type: 3}
+  m_Sprite: {fileID: 536869423, guid: 4cb9e4dfa2bd2314098d50bae0863ca5, type: 3}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9122,7 +9123,7 @@ MonoBehaviour:
   rainyIcon: {fileID: -219009332, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
   snowyIcon: {fileID: 1793435637, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
   cloudyIcon: {fileID: 1782849318, guid: 009cfa021e4058147831f2555b5c1ddf, type: 3}
-  weatherText: {fileID: 198973737}
+  text: {fileID: 198973737}
 --- !u!1001 &1558501311
 PrefabInstance:
   m_ObjectHideFlags: 0

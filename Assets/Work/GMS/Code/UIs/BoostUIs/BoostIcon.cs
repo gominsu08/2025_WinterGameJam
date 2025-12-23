@@ -7,17 +7,16 @@ namespace Work.GMS.Code.UIs.BoostUIs
 {
     public class BoostIcon : MonoBehaviour
     {
-        [SerializeField] private Image iconImage;
-        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private Image ming;
 
-        public void SetIcon(string str)
+        public void SetIcon(Sprite str)
         {
-            text.SetText(str);
+            ming.sprite = (str);
         }
 
         public void SetColor(Color color)
         {
-            iconImage.color = color;
+            //iconImage.color = color;
         }
     }
 }
