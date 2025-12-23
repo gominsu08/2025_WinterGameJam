@@ -20,6 +20,8 @@ namespace Work.Characters
         private CharacterMovementCompo _mover;
         private Vector3 _startPosition;
 
+        [SerializeField] private bool isMainScene = false;  
+
         private void Awake()
         {
             _inputContainer = new InputContainer();
@@ -40,7 +42,7 @@ namespace Work.Characters
             _mover = CurrentCharacter.GetCompo<CharacterMovementCompo>();
 
             _mover.SetCanMove(false);
-            _stateCompo.SetCanStateChange(false);
+            _stateCompo.SetCanStateChange(isMainScene);
         }
 
         private void HandleStartGame(GameStartEvent evt)
