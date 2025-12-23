@@ -43,7 +43,7 @@ namespace Work.KJY.Code.UI
         private void UpdateUI()
         {
             string defaultLevelText = "Lv.";
-            string curLevel = PlazaManager.Instance.GetCurLevel().ToString();
+            string curLevel = (PlazaManager.Instance.GetCurLevel() - 1).ToString();
             curLevelText.SetText(defaultLevelText + curLevel);
 
             if (PlazaManager.Instance.IsMaxLevel)
