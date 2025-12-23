@@ -5,6 +5,8 @@ public class TimeSystem : MonoBehaviour
 {
     public int hour;
 
+    public int hourChangeInterval = 1;
+
     public Gradient timeColorGradient;
     public Light directionalLight;
 
@@ -24,7 +26,7 @@ public class TimeSystem : MonoBehaviour
             {
                 hour = i;
                 ChangeHour(hour);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(hourChangeInterval);
             }
         }
     }

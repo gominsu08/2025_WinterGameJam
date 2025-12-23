@@ -22,7 +22,7 @@ namespace Work.KJY.Code.Manager
 
         private void Start()
         {
-            FadeOut();
+            //FadeOut();
         }
 
         public void FadeIn(float duration = 1f, string sceneName = "")

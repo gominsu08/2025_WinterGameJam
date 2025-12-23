@@ -78,7 +78,13 @@ public class SnowmanDecoration : MonoBehaviour
 
         // 기본 선택 타입(원하면 여기서 원하는 초기값 지정)
         // currentDecoType = DecorationType.Muffler;
-        InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        if(DataContainer.Instance != null)InitSnowmanData(DataContainer.Instance.GetSnowmanSize().x, DataContainer.Instance.GetSnowmanSize().y);
+        else
+        {
+            InitSnowmanData(10f, 10f);
+            Debug.LogWarning("데이터 컨테이너가 존재하지 않습니다, 기본 사이즈를 불러옵니다");
+        }
+        
         InitDecoUI();
     }
 
@@ -192,6 +198,26 @@ public class SnowmanDecoration : MonoBehaviour
 
         // === 2) 기존 토글 방식(목도리/모자/단추 등)은 그대로 유지 ===
         
+        bool isCanPlace = false;
+
+        if(decoItem != null && decoItem.activeSelf)
+        {
+            Inventory.Instance.AddItem(item);
+            currentSnowmanData.RemoveDecorationItem(item);
+        }
+        else
+        {
+            currentSnowmanData.AddDecorationItem(item);
+            isCanPlace = Inventory.Instance.RemoveItem(item);
+        }
+
+
+        if(isCanPlace == false)
+        {
+            Debug.LogWarning("아이템이 인벤토리에 없습니다: " + item.itemName);
+            return;
+        }
+        
         switch (item.decorationType)
         {
             case DecorationType.Muffler:
@@ -238,16 +264,7 @@ public class SnowmanDecoration : MonoBehaviour
                 break;
         }
 
-        if(decoItem != null && decoItem.activeSelf)
-        {
-            Inventory.Instance.RemoveItem(item);
-            currentSnowmanData.AddDecorationItem(item);
-        }
-        else
-        {
-            Inventory.Instance.AddItem(item);
-            currentSnowmanData.RemoveDecorationItem(item);
-        }
+        
 
         InitDecoUI();
     }
@@ -296,7 +313,7 @@ public class SnowmanDecoration : MonoBehaviour
     {
         if (pendingPlaceItem == null) return;
 
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject() && previewInstance != null)
         {
             previewInstance.SetActive(false);
             return;
@@ -322,18 +339,24 @@ public class SnowmanDecoration : MonoBehaviour
                 previewInstance.tag = "Decoration";
                 SetPreviewVisual(previewInstance, true);
             }
+            
 
             previewInstance.transform.parent = isOnUpParts ? snowmanUpPart : snowmanDownPart;
 
             // 위치/회전 업데이트
+            previewInstance?.SetActive(true);
             float offset = GetSurfaceOffset(pendingPlaceItem);
             Vector3 pos = hit.point + hit.normal * offset;
             Quaternion rot = Quaternion.LookRotation(hit.normal, pendingPlaceItem.placementTarget == PlacementTarget.Up ? Vector3.up : Vector3.down) * Quaternion.Euler(pendingPlaceItem.rotationOffset);
             previewInstance.transform.SetPositionAndRotation(pos, rot);
         }
+        else
+        {
+            previewInstance?.SetActive(false);
+        }
 
         // [수정] 좌클릭: 설치 확정 후 모드를 유지함
-        if (Input.GetMouseButtonDown(0) && previewInstance != null && Inventory.Instance.RemoveItem(pendingPlaceItem))
+        if (Input.GetMouseButtonDown(0) && previewInstance.activeSelf && previewInstance != null && Inventory.Instance.RemoveItem(pendingPlaceItem))
         {
             // 싱글톤(코, 입 등) 처리
             if (singletonPlaceTypes.Contains(pendingPlaceItem.decorationType))
