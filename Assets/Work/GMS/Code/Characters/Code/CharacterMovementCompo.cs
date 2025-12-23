@@ -85,7 +85,7 @@ namespace Work.Characters.Code
             _rbCompo.linearVelocity = Vector3.zero;
             _rbCompo.angularVelocity = Vector3.zero;
             Vector3 knockbackDirection = -_character.transform.forward;
-            float knockbackForce = 5f;
+            float knockbackForce = 10f;
             _rbCompo.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
         }
 

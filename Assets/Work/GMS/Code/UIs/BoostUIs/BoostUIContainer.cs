@@ -14,9 +14,9 @@ namespace Work.GMS.Code.UIs.BoostUIs
 
         private Dictionary<BoostType, BoostIcon> _boostIconIstance = new Dictionary<BoostType, BoostIcon>();
 
-        private const string SPEED = ">>";
-        private const string SIELD = "O";
-        private const string GLOWUP = "1.5x";
+        [SerializeField] private Sprite SPEED;
+        [SerializeField] private Sprite SIELD;
+        [SerializeField] private Sprite GLOWUP;
 
         private CharacterBoostCompo _boostCompo;
 
@@ -36,25 +36,25 @@ namespace Work.GMS.Code.UIs.BoostUIs
 
             _boostCompo.OnChangeValueEvent += () =>
             {
-                if(!_boostCompo.IsSprintBoost)
+                if (!_boostCompo.IsSprintBoost)
                 {
-                    if(_boostIconIstance.ContainsKey(BoostType.SpeedBoost))
+                    if (_boostIconIstance.ContainsKey(BoostType.SpeedBoost))
                     {
                         Destroy(_boostIconIstance[BoostType.SpeedBoost].gameObject);
                         _boostIconIstance.Remove(BoostType.SpeedBoost);
                     }
                 }
-                if(!_boostCompo.IsSnowBoost)
+                if (!_boostCompo.IsSnowBoost)
                 {
-                    if(_boostIconIstance.ContainsKey(BoostType.SnowBoost))
+                    if (_boostIconIstance.ContainsKey(BoostType.SnowBoost))
                     {
                         Destroy(_boostIconIstance[BoostType.SnowBoost].gameObject);
                         _boostIconIstance.Remove(BoostType.SnowBoost);
                     }
                 }
-                if(!_boostCompo.IsShield)
+                if (!_boostCompo.IsShield)
                 {
-                    if(_boostIconIstance.ContainsKey(BoostType.SnowShield))
+                    if (_boostIconIstance.ContainsKey(BoostType.SnowShield))
                     {
                         Destroy(_boostIconIstance[BoostType.SnowShield].gameObject);
                         _boostIconIstance.Remove(BoostType.SnowShield);
@@ -69,13 +69,13 @@ namespace Work.GMS.Code.UIs.BoostUIs
             {
                 case BoostType.SpeedBoost:
                     {
-                        if(!_boostIconIstance.ContainsKey(BoostType.SpeedBoost))
+                        if (!_boostIconIstance.ContainsKey(BoostType.SpeedBoost))
                         {
                             BoostIcon icon = IconCreate(SPEED);
                             icon.SetColor(Color.cyan);
                             _boostIconIstance.Add(BoostType.SpeedBoost, icon);
                         }
-                        
+
                     }
                     break;
                 case BoostType.SnowBoost:
@@ -105,8 +105,8 @@ namespace Work.GMS.Code.UIs.BoostUIs
                     break;
             }
         }
-        
-        public BoostIcon IconCreate(string str)
+
+        public BoostIcon IconCreate(Sprite str)
         {
             BoostIcon icon = Instantiate(boostIconPrefab, transform).GetComponent<BoostIcon>();
             icon.SetIcon(str);
