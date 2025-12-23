@@ -24,7 +24,6 @@ namespace Work.KJY.Code.UI
         
         private void Start()
         {
-            Inventory.Instance.AddMoney(100000);
             interactPanel.SetActive(false);
             Bus<TreeInteractEvent>.Events += OnCanInteract;
             Bus<PlazaLevelUpgradedEvent>.Events += OnPlazaLevelUpgraded;
