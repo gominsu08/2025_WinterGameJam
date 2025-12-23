@@ -9,16 +9,22 @@ namespace Work.GMS.Code.Data
         private float _underSnowRadius = 0.3f;
         private float _upperSnowRadius = 0.3f;
         private float _gold = 0f;
-
+        private int _plazaLevel = 1;
 
         public float UnderSnowRadius => _underSnowRadius;
         public float UpperSnowRadius => _upperSnowRadius;
         public float Gold => _gold;
+        public int PlazaLevel => _plazaLevel;
 
         public void SetRadius(float under, float upper)
         {
             _upperSnowRadius = upper;
             _underSnowRadius = under;
+        }
+
+        public void SetPlazaLevel(int level)
+        {
+            _plazaLevel = level;
         }
 
         public void SetGold(float gold)

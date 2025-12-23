@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Work.GMS.Code.Data;
+using Work.KJY.Code.Manager;
 
 public class SnowmanDecoration : MonoBehaviour
 {
@@ -506,7 +507,7 @@ public class SnowmanDecoration : MonoBehaviour
             decoPrice += deco.itemValuePrice;
         }
 
-        totalPrice = snowPrice + decoPrice + 300;
+        totalPrice = snowPrice + decoPrice;
 
         if(currentSnowmanData.snowmanUpSize > currentSnowmanData.snowmanDownSize)
         {
@@ -553,6 +554,6 @@ public class SnowmanDecoration : MonoBehaviour
 
         Inventory.Instance.AddMoney(totalPrice);
 
-        SceneManager.LoadScene("Merge");
+        IrisFadeManager.Instance.FadeIn(1f, "Merge");
     }
 }
