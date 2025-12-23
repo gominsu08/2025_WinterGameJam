@@ -9,6 +9,7 @@ namespace Work.Characters.Code
 
         private Character _character;
         private DetectSensorCompo _sensor;
+        private CharacterAnimatorCompo _animatorCompo;
         private Rigidbody _rbCompo;
         private Vector3 _direction = Vector3.zero; //움직일 방향
         private float _snowRadiuse = 8f;
@@ -35,6 +36,7 @@ namespace Work.Characters.Code
             _character = Owner as Character;
             _sensor = _character.GetCompo<DetectSensorCompo>();
             _rbCompo = _character.GetComponent<Rigidbody>();
+            _animatorCompo = _character.GetCompo<CharacterAnimatorCompo>();
             CurrentSpeed = _defaultSpeed;
         }
 
@@ -115,7 +117,11 @@ namespace Work.Characters.Code
             _rbCompo.linearVelocity = moveVector;
         }
 
-        public void SetMultiplier(float value = 1f) => CurrentSpeedMultiplier = value;
+        public void SetMultiplier(float value = 1f)
+        {
+            CurrentSpeedMultiplier = value;
+            _animatorCompo.SetParam(Animator.StringToHash("MOVE_SPEED"),CurrentSpeedMultiplier);
+        }
 
         #endregion 
     }

@@ -29,6 +29,7 @@ namespace Work.Inputs
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.performed)
+                Debug.Log("상호작용 입력 감지");
                 Bus<CharacterInteractionEvent>.Raise(new CharacterInteractionEvent());
         }
 
@@ -36,7 +37,7 @@ namespace Work.Inputs
         {
             Vector2 vector = context.ReadValue<Vector2>();
 
-            Bus<CharacterMoveEvent>.Raise(new CharacterMoveEvent(new Vector3( vector.x,0, vector.y)));
+            Bus<CharacterMoveEvent>.Raise(new CharacterMoveEvent(new Vector3(vector.x, 0, vector.y)));
         }
 
 
