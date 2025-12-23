@@ -17732,7 +17732,7 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 2048
-  playSceneName: InGameScene
+  playSceneName: PlayerTestScene
 --- !u!65 &1322807538
 BoxCollider:
   m_ObjectHideFlags: 0
