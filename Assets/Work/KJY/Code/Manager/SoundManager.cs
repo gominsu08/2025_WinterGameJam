@@ -23,7 +23,7 @@ namespace Work.KJY.Code.Manager
         
         private List<AudioSource> _bgmSources;
 
-        private void Awake()
+        private void Start()
         {
             _bgmSources = new List<AudioSource>();
             for (int i = 0; i < bgmPoolSize; i++)
