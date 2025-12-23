@@ -23,5 +23,5 @@ MonoBehaviour:
   itemValuePrice: 1500
   isPlaceable: 0
   placeablePrefab: {fileID: 0}
-  placementTarget: 0
+  placementTarget: 1
   surfaceOffset: 0.02
