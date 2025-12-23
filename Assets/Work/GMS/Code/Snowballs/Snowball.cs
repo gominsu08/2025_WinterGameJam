@@ -2,6 +2,8 @@
 using UnityEngine;
 using Work.Characters.Code;
 using Work.Characters.FSM.Code;
+using Work.GMS.Code.Characters.Code;
+using Work.GMS.Code.Characters.Code.Test;
 
 namespace Work.GMS.Code.Snowballs
 {
@@ -15,9 +17,14 @@ namespace Work.GMS.Code.Snowballs
         [Header("Snow Ball")]
         public float checkDistance = 1.2f;
         public float currentRadius = 0.3f;
+
+        private float _currentSnowRadius = 0.3f;
+        public float CurrentSnowRadius => _currentSnowRadius;
         private Character _owner;
         private CharacterMovementCompo _mover;
         private StateCompo _stateCompo;
+        private CharacterBoostCompo _boostCompo;
+        private SnowBallCompo _snowBallCompo;
         Vector3 lastDigPosition;
 
         public void Init(Character character)
@@ -25,17 +32,18 @@ namespace Work.GMS.Code.Snowballs
             _owner = character;
             _mover = _owner.GetCompo<CharacterMovementCompo>();
             _stateCompo = _owner.GetCompo<StateCompo>();
+            _boostCompo = _owner.GetCompo<CharacterBoostCompo>();
+            _snowBallCompo = _owner.GetCompo<SnowBallCompo>();
         }
 
         public void SetSnow(float currentSnowRadius)
         {
-            currentRadius = currentSnowRadius;
-            snowCollider.transform.localScale = Vector3.one * currentRadius;
-            transform.localPosition = new Vector3(0, (currentRadius / 2) - 0.776f, (currentRadius / 2));
-            transform.Rotate((10 * _mover.CurrentSpeed + (currentRadius * 4)) * Time.deltaTime, 0, 0f);
+            _currentSnowRadius = currentSnowRadius;
+            snowCollider.transform.localScale = Vector3.one * _currentSnowRadius;
+
             Ray ray = new Ray(transform.position, Vector3.down);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, currentRadius + checkDistance, groundLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, _currentSnowRadius + checkDistance, groundLayer))
             {
                 // 너무 자주 파지 않도록 거리 제한
                 if (Vector3.Distance(lastDigPosition, hit.point) < 0.15f)
@@ -43,11 +51,11 @@ namespace Work.GMS.Code.Snowballs
 
                 lastDigPosition = hit.point;
 
-                
+
 
                 snowManager.RemoveAndDeformSnow(
                     hit,
-                    currentRadius
+                    _currentSnowRadius
                 );
             }
 
@@ -82,8 +90,16 @@ namespace Work.GMS.Code.Snowballs
             _mover.SetCanMove(false);
             _stateCompo.SetCanStateChange(false);
             _mover.Knockback();
-            SetSnow((currentRadius - descount) > minRadius ? (currentRadius - descount) : minRadius);
-            ParticleSystem impact = Instantiate(snowImpactEffect, transform.position, Quaternion.identity);
+            if (!_boostCompo.IsShield)
+            {
+                _snowBallCompo.Set();
+                ParticleSystem impact = Instantiate(snowImpactEffect, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                _boostCompo.SetSieldFalse();
+            }
+
             DOVirtual.DelayedCall(0.4f, () =>
             {
                 //_mover.SetCanMove(true);
