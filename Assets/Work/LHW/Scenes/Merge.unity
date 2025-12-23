@@ -3539,6 +3539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e933a77f7a6d457da33e800cb90344c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weatherChangeInterval: 60
   rainEffect: {fileID: 536911296}
   snowEffect: {fileID: 1092638701}
   cloudyEffect: {fileID: 1268301338}
@@ -12398,6 +12399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hour: 0
+  hourChangeInterval: 30
   timeColorGradient:
     serializedVersion: 2
     key0: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
@@ -19940,7 +19942,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -17}
+  m_SizeDelta: {x: 0, y: 52.4588}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1435883455
 MonoBehaviour:
@@ -21679,8 +21681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_HorizontalFit: 1
+  m_VerticalFit: 1
 --- !u!114 &1622121123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24346,12 +24348,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1622121121}
   m_Horizontal: 1
-  m_Vertical: 1
+  m_Vertical: 0
   m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 60
   m_Viewport: {fileID: 1435883454}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}

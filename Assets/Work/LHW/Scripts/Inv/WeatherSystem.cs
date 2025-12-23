@@ -24,6 +24,8 @@ public struct WeatherChangeEvent : IEvent
 
 public class WeatherSystem : MonoBehaviour
 {
+    public int weatherChangeInterval = 5;
+
     private WeatherType currentWeather;
     public GameObject rainEffect;
     public GameObject snowEffect;
@@ -43,7 +45,7 @@ public class WeatherSystem : MonoBehaviour
         ChangeWeather(WeatherType.Sunny);
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(weatherChangeInterval);
             ChangeWeather((WeatherType)Random.Range(0, 4));
         }
     }
