@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Work/KJY/Scene/InGameUI.unity
     guid: 49d331fe141641742b1ce460d04bc929
   - enabled: 1
+    path: Assets/Work/LHW/Scenes/Tutorial.unity
+    guid: 3e81fd87bb7074b86b0d9afc4851cfc3
+  - enabled: 1
     path: Assets/Work/LHW/Scenes/SnowmanDeco.unity
     guid: 2247d79faed384f06be59e873f9630ca
   - enabled: 1
