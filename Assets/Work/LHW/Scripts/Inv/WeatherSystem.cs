@@ -34,9 +34,8 @@ public class WeatherSystem : MonoBehaviour
 
     void Start()
     {
-        Co_TestRoutine();
-        //if (!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈")) Co_TestRoutine();
-        //else ChangeWeather(WeatherType.Snowy);
+        if (!Inventory.Instance.IsUsedBuffItem("테루 테루 보즈")) Co_TestRoutine();
+        else ChangeWeather(WeatherType.Snowy);
     }
 
     /// <summary>
