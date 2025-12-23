@@ -116,7 +116,7 @@ namespace Work.KJY.Code.UI
             }
             endingCanvas.SetActive(true);
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3.5f);
             IrisFadeManager.Instance.FadeIn(1f, "TitleScene");
         }
     }

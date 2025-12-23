@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Work.GMS.Code.Data;
+using Work.KJY.Code.Manager;
 
 public class SnowmanDecoration : MonoBehaviour
 {
@@ -553,6 +554,6 @@ public class SnowmanDecoration : MonoBehaviour
 
         Inventory.Instance.AddMoney(totalPrice);
 
-        SceneManager.LoadScene("Merge");
+        IrisFadeManager.Instance.FadeIn(1f, "Merge");
     }
 }
